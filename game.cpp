@@ -27,9 +27,12 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
+	// Set flush of logfile during development (when done, make false).
+	log_manager.setFlush(true);
+
 	// Load game resources.
 	loadResources();
-
+	
 	// Show splash screen.
 	//df::splash();
 
@@ -38,24 +41,22 @@ int main(int argc, char *argv[]) {
 	// Populate game world with some objects.
 	populateWorld();
 
-	// Enable player to pause game.
-	//new df::Pause(df::Keyboard::F10);
-
-	// Set flush of logfile during development (when done, make false).
-	log_manager.setFlush(true);
-
 	//RUN GAME
 	game_manager.run();
 
 	// Shut everything down.
 	game_manager.shutDown();
+	
+	return 0;
 }
 
 //loads sprites and other resources
 void loadResources(void){
-	// Load sprites
+	df::LogManager &log_manager = df::LogManager::getInstance();
 	df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
-	resource_manager.loadSprite("sprites/player-tank-spr.txt", "player");
+	// Load sprites
+	if(!resource_manager.loadSprite("./sprites/player-tank-spr.txt", "player"))
+		log_manager.writeLog("Successfully loaded player-tank-spr.txt.");
 }
 
 // Populate world with some objects.
