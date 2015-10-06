@@ -1,0 +1,11 @@
+frames 1
+width 8
+height 4
+charcolor black
+tilecolor transparent
+    _   
+  _/'|  
+ / , .\ 
+(______)
+end
+eof

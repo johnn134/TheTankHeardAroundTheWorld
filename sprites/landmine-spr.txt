@@ -1,0 +1,10 @@
+frames 1
+width 3
+height 3
+charcolor custom
+tilecolor transparent
+<O>
+break
+010
+end
+eof

@@ -100,7 +100,7 @@ void Tank::fireGun(df::Position target){
 	//create bullet and send it flying
 	Bullet *p_bullet = new Bullet(getPosition());
 	df::Line l(p_bullet->getPosition(), target);
-	p_bullet->setYVelocity();
+	p_bullet->setYVelocity(-1);
 }
 
 // Move up or down

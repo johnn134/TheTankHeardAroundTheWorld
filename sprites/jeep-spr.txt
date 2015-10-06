@@ -1,0 +1,16 @@
+frames 1
+width 7
+height 4
+charcolor blue
+tilecolor transparent
+8 ___ 8
+[|---|]
+ ||_|| 
+[|___|]
+end
+  ___   
+[|---|]
+8||_||8
+[|___|]
+end
+eof

@@ -1,0 +1,20 @@
+frames 1
+width 11
+height 6
+charcolor custom
+tilecolor transparent
+  _______  
+ /|     |\ 
+| |     | |
+| |_____| |
+|//     \\|
+||_______||
+break
+66666666666
+66666666666
+66666666666
+66600000666
+66000000066
+60000000006
+end
+eof

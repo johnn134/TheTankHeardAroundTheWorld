@@ -1,0 +1,8 @@
+frames 1
+width 13
+height 1
+charcolor black
+tilecolor transparent
+|-*-*-*-*-*-|
+end
+eof

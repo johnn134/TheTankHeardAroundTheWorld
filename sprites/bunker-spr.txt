@@ -1,0 +1,22 @@
+frames 4
+width 11
+height 3
+charcolor yellow
+tilecolor transparent
+  _______  
+ / [___] \ 
+/_________\
+end
+  _______  
+ / [_o_] \ 
+/_________\
+end
+  _______  
+ / [oo_] \ 
+/_________\
+end
+  _______  
+ / [ooo] \ 
+/_________\
+end
+eof

@@ -1,0 +1,14 @@
+frames 2
+width 3
+height 3
+charcolor yellow
+tilecolor transparent
+ 0 
+>+-
+ ^ 
+end
+ 0 
+-+<
+ ^ 
+end
+eof

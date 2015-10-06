@@ -1,0 +1,22 @@
+frames 4
+width 9
+height 3
+charcolor blue
+tilecolor transparent
+  ---+---
+x===(+() 
+    ---- 
+end
+   --+-- 
++===(x() 
+    ---- 
+end
+---+---  
+ ()+)===x
+ ----    
+end
+ --+--   
+ ()x)===+
+ ----    
+end
+eof

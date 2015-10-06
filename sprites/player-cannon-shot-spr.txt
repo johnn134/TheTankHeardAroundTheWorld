@@ -1,0 +1,9 @@
+frames 1
+width 1
+height 2
+charcolor red
+tilecolor transparent
+0
+^
+end
+eof

@@ -1,0 +1,12 @@
+frames 3
+width 1
+height 1
+charcolor magenta
+tilecolor transparent
+O
+end
+o
+end
+.
+end
+eof

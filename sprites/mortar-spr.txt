@@ -1,0 +1,30 @@
+frames 1
+width 4
+height 3
+charcolor custom
+tilecolor transparent
+_   
+\\  
+/\\ 
+break
+2888
+2288
+2228
+end
+_  0
+\\ +
+/\\^
+break
+2883
+2283
+2223
+end
+*  0
+\\ +
+/\\^
+break
+1883
+2283
+2228
+end
+eof

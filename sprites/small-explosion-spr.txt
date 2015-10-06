@@ -1,0 +1,26 @@
+frames 4
+width 3
+height 3
+charcolor red
+tilecolor transparent
+   
+ * 
+   
+end
+ * 
+***
+ * 
+end
+***
+*.*
+***
+end
+*.*
+.  
+* *
+end
+. .
+   
+.  
+end
+eof

@@ -1,0 +1,22 @@
+frames 2
+width 1
+height 3
+charcolor custom
+tilecolor transparent
+v
+H
+V
+break
+1
+5
+5
+end
+v
+H
+V
+break
+3
+5
+5
+end
+eof

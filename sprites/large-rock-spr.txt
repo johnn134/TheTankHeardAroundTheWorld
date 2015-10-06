@@ -1,0 +1,12 @@
+frames 1
+width 17
+height 5
+charcolor black
+tilecolor transparent
+      _,-.       
+    _/ , '\__    
+  _/' , '_/ '\_  
+ /,\____/' _ ,'\ 
+(___)  (__(_)___)
+end
+eof
