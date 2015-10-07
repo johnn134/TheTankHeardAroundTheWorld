@@ -6,6 +6,7 @@
 #include "Object.h"
 #include "EventKeyboard.h"
 #include "EventMouse.h"
+#include "EventCollision.h"
 #include "Reticle.h"
 #include "Position.h"
 
@@ -19,6 +20,11 @@ private:
 	bool wide_shot;
 	bool cannon_CDR;
 	bool angle_cannon;
+	int wide_shotCD;
+	int cannon_CDRCD;
+	int angle_cannonCD;
+	bool scroll;
+	int scroll_countdown;
 
 	//handle keyboard events
 	void kbd(const df::EventKeyboard *p_event_kbd);
@@ -28,6 +34,9 @@ private:
 
 	//handle mouse events
 	void mouse(const df::EventMouse *p_event_mouse);
+
+	//handle collision events
+	void hit(const df::EventCollision *p_event_collision);
 
 	//draw frames to match where the reticle is
 	void draw(void);

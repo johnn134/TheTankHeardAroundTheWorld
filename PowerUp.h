@@ -6,12 +6,21 @@
 #include "Object.h"
 #include "Position.h"
 
+enum Ability{
+	UNDEFINED_ABILITY = -1,
+	WIDE_SHOT,
+	CANNON_CDR,
+	ANGLE_CANNON,
+};
+
 class PowerUp : public df::Object{
 private:
-	std::string ability;
+	Ability ability;
+	
 
 public:
+	Ability getAbility() const;
 	//give power up an ability
-	PowerUp(std::string init_ability, df::Position p);
+	PowerUp(Ability init_ability, df::Position p);
 };
 #endif

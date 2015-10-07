@@ -9,6 +9,7 @@
 #include "utility.h"
 #include "PlayerGunShot.h"
 #include "PlayerCannonShot.h"
+#include "PowerUp.h"
 
 int Tank::eventHandler(const df::Event *p_e) {
 	//catch keyboard events
@@ -32,8 +33,45 @@ int Tank::eventHandler(const df::Event *p_e) {
 		return 1;
 	}
 
+	//catch collision events
+	if (p_e->getType() == df::COLLISION_EVENT) {
+		const df::EventCollision *p_event_collision = static_cast <const df::EventCollision *> (p_e);
+
+		hit(p_event_collision);
+		return 1;
+	}
+
 	//event ignored
 	return 0;
+}
+
+void Tank::hit(const df::EventCollision *p_event_collision){
+	//hit a powerup
+	if (p_event_collision->getObject2()->getType() == "PowerUp"){
+		// Play "power-up-get" sound.
+		df::Sound *p_sound = df::ResourceManager::getInstance().getSound("power-up-get");
+		p_sound->play();
+
+		PowerUp *p_powerUp = (PowerUp *)(p_event_collision->getObject2());
+
+		//get power up depending on powerup's ability
+		if (p_powerUp->getAbility() == WIDE_SHOT){
+			wide_shotCD = 500;
+			wide_shot = true;
+		}
+		else if (p_powerUp->getAbility() == CANNON_CDR){
+			cannon_CDRCD = 500;
+			cannon_CDR = true;
+		}
+		else if (p_powerUp->getAbility() == ANGLE_CANNON){
+			angle_cannonCD = 500;
+			angle_cannon = true;
+		}
+
+		//delete powerup
+		df::WorldManager &wm = df::WorldManager::getInstance();
+		wm.markForDelete(p_powerUp);
+	}
 }
 
 void Tank::kbd(const df::EventKeyboard *p_keyboard_event) {
@@ -72,8 +110,15 @@ void Tank::kbd(const df::EventKeyboard *p_keyboard_event) {
 	}
 }
 
-// Decrease rate restriction counters
+// Decrease rate restriction counters and send a scroll event to all other game objects if scrolling
 void Tank::step() {
+	if (scroll){
+		scroll_countdown--;
+		if (scroll_countdown < 0){
+			//send scroll event
+		}
+	}
+
 	// Move countdown
 	move_countdown--;
 	if (move_countdown < 0)
@@ -88,6 +133,23 @@ void Tank::step() {
 	gunCD--;
 	if (gunCD < 0)
 		gunCD = 0;
+
+	//power up cooldowns
+	wide_shotCD--;
+	if (wide_shotCD < 0){
+		wide_shotCD = 0;
+		wide_shot = false;
+	}
+	cannon_CDRCD--;
+	if (cannon_CDRCD < 0){
+		cannon_CDRCD = 0;
+		cannon_CDR = false;
+	}
+	angle_cannonCD--;
+	if (angle_cannonCD < 0){
+		angle_cannonCD = 0;
+		angle_cannon = false;
+	}
 }
 
 void Tank::mouse(const df::EventMouse *p_event_mouse){
@@ -291,6 +353,7 @@ Tank::Tank(){
 	registerInterest(df::KEYBOARD_EVENT);
 	registerInterest(df::STEP_EVENT);
 	registerInterest(df::A_MOUSE_EVENT);
+	registerInterest(df::COLLISION_EVENT);
 
 	setSolidness(df::SOFT);
 
@@ -302,7 +365,12 @@ Tank::Tank(){
 	move_countdown = move_slowdown;
 	gunCD = 0;
 	cannonCD = 0;
-	wide_shot = true;
-	cannon_CDR = true;
-	angle_cannon = true;
+	wide_shot = false;
+	cannon_CDR = false;
+	angle_cannon = false;
+	wide_shotCD = 0;
+	cannon_CDRCD = 0;
+	angle_cannonCD = 0;
+	scroll = true;
+	scroll_countdown = 0;
 }
