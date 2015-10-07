@@ -1,5 +1,8 @@
 // the tank that the player controls
 
+#ifndef __TANK_H__
+#define __TANK_H__
+
 #include "Object.h"
 #include "EventKeyboard.h"
 #include "EventMouse.h"
@@ -13,6 +16,9 @@ private:
 	int move_countdown;
 	int cannonCD;
 	int gunCD;
+	bool wide_shot;
+	bool cannon_CDR;
+	bool angle_cannon;
 
 	//handle keyboard events
 	void kbd(const df::EventKeyboard *p_event_kbd);
@@ -29,6 +35,9 @@ private:
 	//fire machinegun at target
 	void fireGun(df::Position target);
 
+	//fire main cannon
+	void fireCannon();
+
 	//move along x or y axis
 	void moveOnX(int dx);
 	void moveOnY(int dy);
@@ -41,3 +50,4 @@ public:
 	//~Tank();
 	int eventHandler(const df::Event *p_e);
 };
+#endif

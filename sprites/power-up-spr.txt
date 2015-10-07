@@ -1,0 +1,54 @@
+frames 12
+width 3
+height 3
+charcolor blue
+tilecolor transparent
+  |
+ O 
+   
+end
+  /
+ O 
+   
+end
+   
+ 0 
+   
+end
+   
+ O 
+/  
+end
+   
+ O 
+|  
+end
+   
+ O 
+\  
+end
+   
+ O 
+|  
+end
+   
+ O 
+/  
+end
+   
+ 0 
+   
+end
+  /
+ O 
+   
+end
+  |
+ O 
+   
+end
+  \
+ O 
+   
+end
+eof
