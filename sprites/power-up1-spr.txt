@@ -1,7 +1,7 @@
 frames 4
 width 3
 height 3
-charcolor black
+charcolor blue
 tilecolor transparent
   o
  I 
