@@ -13,7 +13,7 @@ Trench::Trench(df::Position p) {
 	df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
 	df::LogManager &log_manager = df::LogManager::getInstance();
 
-	// Link to "player" sprite
+	// Link to "trench" sprite
 	df::Sprite *p_temp_sprite;
 	p_temp_sprite = resource_manager.getSprite("trench");
 	if (!p_temp_sprite) {
