@@ -6,11 +6,19 @@
 #define __BOMBER_H__
 
 //Dragonfly Headers
+#include "EventCollision.h"
 #include "Object.h"
 #include "Position.h"
 
 class Bomber : public df::Object {
 private:
+	int fire_slowdown;
+	int fire_countdown;
+	bool bomb_right;
+
+	void step();
+	void fire();
+	void hit(const df::EventCollision *p_collision_event);
 
 public:
 	Bomber(df::Position p);

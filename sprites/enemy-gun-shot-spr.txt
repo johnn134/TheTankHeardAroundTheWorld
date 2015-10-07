@@ -3,6 +3,6 @@ width 1
 height 1
 charcolor magenta
 tilecolor transparent
-.
+|
 end
 eof

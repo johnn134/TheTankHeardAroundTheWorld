@@ -1,14 +1,22 @@
 frames 2
 width 3
 height 3
-charcolor yellow
+charcolor custom
 tilecolor transparent
  0 
 >+-
  ^ 
+break
+828
+020
+828
 end
  0 
 -+<
  ^ 
+break
+828
+020
+828
 end
 eof

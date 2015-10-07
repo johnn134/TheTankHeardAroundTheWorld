@@ -7,6 +7,7 @@
 
 //Dragonfly Headers
 #include "EventStep.h"
+#include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
 #include "utility.h"
@@ -80,11 +81,17 @@ void FootSoldier::fire() {
 	//Check if player is in range
 	int y_offset = player->getPosition().getY() - getPosition().getY();
 
-	if (y_offset < 24 && y_offset > 0) {
+	if (y_offset < df::GraphicsManager::getInstance().getVertical() * 3 / 4 && y_offset > 0 &&
+		boxIntersectsBox(getWorldBox(this), df::WorldManager::getInstance().getView())) {
 		// Fire Bullet towards target.
-		EnemyGunShot *p = new EnemyGunShot(df::Position::Position(getPosition().getX(), getPosition().getY() + 3));
-		p->setXVelocity((float)(player->getPosition().getX() - getPosition().getX()) /
-						(float)(player->getPosition().getY() - getPosition().getY()));
+		df::Position pos;
+		if (player->getPosition().getX() > getPosition().getX())
+			pos = df::Position::Position(getPosition().getX() + 2, getPosition().getY());
+		else
+			pos = df::Position::Position(getPosition().getX() - 2, getPosition().getY());
+		EnemyGunShot *p = new EnemyGunShot(pos);
+		p->setXVelocity((float)(player->getPosition().getX() - pos.getX()) /
+						(float)(player->getPosition().getY() - pos.getY()));
 
 		// Play "fire" sound.
 	}
@@ -92,9 +99,11 @@ void FootSoldier::fire() {
 
 
 void FootSoldier::hit(const df::EventCollision *p_collision_event) {
-	// If Bullet, create explosion and make new Saucer.
+	// If PlayerGunShot or PlayerCannonShot, create explosion and delete soldier
 	if ((p_collision_event->getObject1()->getType() == "PlayerGunShot") ||
-		(p_collision_event->getObject2()->getType() == "PlayerGunShot")) {
+		(p_collision_event->getObject2()->getType() == "PlayerGunShot") || 
+		(p_collision_event->getObject1()->getType() == "PlayerCannonShot") ||
+		(p_collision_event->getObject2()->getType() == "PlayerCannonShot")) {
 
 		// Create an explosion.
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
@@ -104,4 +113,14 @@ void FootSoldier::hit(const df::EventCollision *p_collision_event) {
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);
 	}
+}
+
+//draw frames to match where the soldier is
+void FootSoldier::draw(void) {
+	int dir_frame = 0;
+	if (player->getPosition().getX() > getPosition().getX())
+		dir_frame = 0;
+	else
+		dir_frame = 1;
+	df::GraphicsManager::getInstance().drawFrame(getPosition(), getSprite()->getFrame(dir_frame), true);
 }

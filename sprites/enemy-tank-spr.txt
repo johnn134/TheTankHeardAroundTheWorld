@@ -2,8 +2,8 @@ frames 1
 width 9
 height 7
 charcolor blue
-tilecolor transparent    
-  _____   
+tilecolor transparent
+  _____  
 [| ___ |]
 [||   ||]
 [||   ||]

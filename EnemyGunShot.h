@@ -18,5 +18,4 @@ public:
 	EnemyGunShot(df::Position p);
 	int eventHandler(const df::Event *p_e);
 };
-
 #endif

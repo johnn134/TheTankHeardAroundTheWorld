@@ -4,8 +4,10 @@
 
 //Dragonfly Headers
 #include "EventStep.h"
+#include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
+#include "utility.h"
 #include "WorldManager.h"
 
 //Game Headers
@@ -42,6 +44,7 @@ RocketSoldier::RocketSoldier(df::Position p, df::Object *new_player) {
 	player = new_player;
 	fire_slowdown = 60;
 	fire_countdown = fire_slowdown;
+	rocketInTube = true;
 }
 
 // Handle event.
@@ -66,6 +69,10 @@ void RocketSoldier::fire() {
 	if (fire_countdown < 0)
 		fire_countdown = 0;
 
+	//See if rocket should be placed in tube
+	if (fire_countdown < fire_slowdown / 3)
+		rocketInTube = true;
+
 	// See if time to fire.
 	if (fire_countdown > 0)
 		return;
@@ -76,11 +83,19 @@ void RocketSoldier::fire() {
 	//Check if player is in range
 	int y_offset = player->getPosition().getY() - getPosition().getY();
 
-	if (y_offset < 24 && y_offset > 0) {
+	if (y_offset < df::GraphicsManager::getInstance().getVertical() * 3 / 4 && y_offset > 0 &&
+		boxIntersectsBox(getWorldBox(this), df::WorldManager::getInstance().getView())) {
 		// Fire Bullet towards target.
-		EnemyRocketShot *p = new EnemyRocketShot(df::Position::Position(getPosition().getX(), getPosition().getY() + 4));
-		p->setXVelocity((float)(player->getPosition().getX() - getPosition().getX()) /
-						(float)(player->getPosition().getY() - getPosition().getY()));
+		df::Position pos;
+		if (player->getPosition().getX() > getPosition().getX())
+			pos = df::Position::Position(getPosition().getX() + 3, getPosition().getY());
+		else
+			pos = df::Position::Position(getPosition().getX() - 3, getPosition().getY());
+		EnemyRocketShot *p = new EnemyRocketShot(pos);
+		p->setXVelocity((float)(player->getPosition().getX() - pos.getX()) /
+						(float)(player->getPosition().getY() - pos.getY()) * 0.5f);
+
+		rocketInTube = false;
 
 		// Play "fire" sound.
 	}
@@ -90,7 +105,9 @@ void RocketSoldier::fire() {
 void RocketSoldier::hit(const df::EventCollision *p_collision_event) {
 	// If Bullet, create explosion and make new Saucer.
 	if ((p_collision_event->getObject1()->getType() == "PlayerGunShot") ||
-		(p_collision_event->getObject2()->getType() == "PlayerGunShot")) {
+		(p_collision_event->getObject2()->getType() == "PlayerGunShot") ||
+		(p_collision_event->getObject1()->getType() == "PlayerCannonShot") ||
+		(p_collision_event->getObject2()->getType() == "PlayerCannonShot")) {
 
 		// Create an explosion.
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
@@ -100,4 +117,22 @@ void RocketSoldier::hit(const df::EventCollision *p_collision_event) {
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);
 	}
+}
+
+//draw frames to match where the player is
+void RocketSoldier::draw(void) {
+	int dir_frame = 0;
+	if (player->getPosition().getX() < getPosition().getX()) {
+		if (rocketInTube)
+			dir_frame = 0;
+		else
+			dir_frame = 1;
+	}
+	else {
+		if (rocketInTube)
+			dir_frame = 2;
+		else
+			dir_frame = 3;
+	}
+	df::GraphicsManager::getInstance().drawFrame(getPosition(), getSprite()->getFrame(dir_frame), true);
 }

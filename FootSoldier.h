@@ -19,6 +19,9 @@ private:
 	void fire();
 	void hit(const df::EventCollision *p_collision_event);
 
+	//draw frames to match where the player is
+	void draw(void);
+
 public:
 	FootSoldier(df::Position p, df::Object *new_player);
 

@@ -1,4 +1,4 @@
-frames 1
+frames 2
 width 6
 height 4
 charcolor custom
@@ -12,5 +12,15 @@ break
 676666
 666666
 660066
+end
+`O___ 
+||   |
+|____|
+|_||_|
+break
+777777
+777777
+777777
+777777
 end
 eof

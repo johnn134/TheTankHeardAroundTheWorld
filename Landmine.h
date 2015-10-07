@@ -6,11 +6,13 @@
 #define __LANDMINE_H__
 
 //Dragonfly Headers
+#include "EventCollision.h"
 #include "Object.h"
 #include "Position.h"
 
 class Landmine : public df::Object {
 private:
+	void hit(const df::EventCollision *p_collision_event);
 
 public:
 	Landmine(df::Position p);

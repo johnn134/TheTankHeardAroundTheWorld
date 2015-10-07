@@ -16,7 +16,7 @@ EnemyRocketShot::EnemyRocketShot(df::Position p) {
 	df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
 	df::LogManager &log_manager = df::LogManager::getInstance();
 
-	//Link to "bullet" sprite.
+	//Link to "enemyrocketshot" sprite.
 	df::Sprite *p_temp_sprite;
 	p_temp_sprite = resource_manager.getSprite("enemyrocketshot");
 	if (!p_temp_sprite) {
@@ -34,7 +34,7 @@ EnemyRocketShot::EnemyRocketShot(df::Position p) {
 	//Set starting location
 	setPosition(p);
 
-	setYVelocity(0.5); // Move 1 space down every game loop.
+	setYVelocity(0.5); // Move 0.5 spaces down every game loop.
 }
 
 // Handle event.

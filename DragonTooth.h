@@ -6,11 +6,13 @@
 #define __DRAGONTOOTH_H__
 
 //Dragonfly Headers
+#include "EventCollision.h"
 #include "Object.h"
 #include "Position.h"
 
 class DragonTooth : public df::Object {
 private:
+	void hit(const df::EventCollision *p_collision_event);
 
 public:
 	DragonTooth(df::Position p);

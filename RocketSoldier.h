@@ -15,9 +15,13 @@ private:
 	df::Object *player;
 	int fire_slowdown;
 	int fire_countdown;
+	bool rocketInTube;
 
 	void fire();
 	void hit(const df::EventCollision *p_collision_event);
+
+	//draw frames to match where the player is
+	void draw(void);
 
 public:
 	RocketSoldier(df::Position p, df::Object *new_player);

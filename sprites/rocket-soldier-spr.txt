@@ -1,22 +1,38 @@
 frames 4
 width 5
 height 3
-charcolor red
+charcolor custom
 tilecolor transparent
 o=0=<
  `|' 
   ^  
+break
+00105
+81118
+88188
 end
-o=0=
+o=0= 
  `|' 
   ^  
+break
+00108
+81118
+88188
 end
 >=0=o
  `|' 
   ^  
+break
+50100
+81118
+88188
 end
  =0=o
  `|' 
   ^  
+break
+80100
+81118
+88188
 end
 eof

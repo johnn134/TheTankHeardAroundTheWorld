@@ -1,10 +1,14 @@
-frames 1
+frames 2
 width 3
-height 3
+height 1
 charcolor custom
 tilecolor transparent
-<O>
+<o>
 break
 010
+end
+<o>
+break
+000
 end
 eof
