@@ -335,9 +335,9 @@ Tank::Tank(){
 
 	// Link to "player" sprite
 	df::Sprite *p_temp_sprite;
-	p_temp_sprite = resource_manager.getSprite("player-tank");
+	p_temp_sprite = resource_manager.getSprite("playertank");
 	if (!p_temp_sprite) {
-		log_manager.writeLog("Tank::Tank(): Warning! Sprite '%s' not found", "player-tank");
+		log_manager.writeLog("Tank::Tank(): Warning! Sprite '%s' not found", "playertank");
 	}
 	else {
 		setSprite(p_temp_sprite);

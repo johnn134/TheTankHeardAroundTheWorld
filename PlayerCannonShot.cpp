@@ -34,9 +34,9 @@ PlayerCannonShot::PlayerCannonShot(df::Position tank_pos){
 
 	// Link to "player-cannon-shot" sprite
 	df::Sprite *p_temp_sprite;
-	p_temp_sprite = resource_manager.getSprite("player-cannon-shot");
+	p_temp_sprite = resource_manager.getSprite("playercannonshot");
 	if (!p_temp_sprite) {
-		log_manager.writeLog("PlayerCannonShot::PlayerCannonShot(): Warning! Sprite '%s' not found", "player-cannon-shot");
+		log_manager.writeLog("PlayerCannonShot::PlayerCannonShot(): Warning! Sprite '%s' not found", "playercannonshot");
 	}
 	else {
 		setSprite(p_temp_sprite);
