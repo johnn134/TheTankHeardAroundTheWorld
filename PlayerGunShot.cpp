@@ -1,9 +1,9 @@
 #include "PlayerGunShot.h"
+#include "SmallExplosion.h"
 #include "WorldManager.h"
 #include "ResourceManager.h"
 #include "LogManager.h"
 #include "EventOut.h"
-#include "EventCollision.h"
 #include "EventView.h"
 #include "GraphicsManager.h"
 
@@ -15,8 +15,41 @@ int PlayerGunShot::eventHandler(const df::Event *p_e) {
 		return 1;
 	}
 
+	//catch collision events
+	if (p_e->getType() == df::COLLISION_EVENT) {
+		const df::EventCollision *p_event_collision = static_cast <const df::EventCollision *> (p_e);
+
+		hit(p_event_collision);
+		return 1;
+	}
+
 	//event ignored
 	return 0;
+}
+
+void PlayerGunShot::hit(const df::EventCollision *p_collision_event) {
+	if (p_collision_event->getObject1()->getType() != "EnemyCannonShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyCannonShot" &&
+		p_collision_event->getObject1()->getType() != "BarbWire" &&
+		p_collision_event->getObject2()->getType() != "BarbWire" &&
+		p_collision_event->getObject1()->getType() != "PowerUp" &&
+		p_collision_event->getObject2()->getType() != "PowerUp" &&
+		p_collision_event->getObject1()->getType() != "Helicopter" &&
+		p_collision_event->getObject2()->getType() != "Helicopter" &&
+		p_collision_event->getObject1()->getType() != "EnemyGunShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyGunShot" &&
+		p_collision_event->getObject1()->getType() != "Tank" &&
+		p_collision_event->getObject2()->getType() != "Tank" &&
+		p_collision_event->getObject1()->getType() != "PlayerCannonShot" &&
+		p_collision_event->getObject2()->getType() != "PlayerCannonShot") {
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
+
+		//Play gun impact sound
+		df::Sound *p_sound = df::ResourceManager::getInstance().getSound("gun-impact");
+		p_sound->play();
+
+		world_manager.markForDelete(this);
+	}
 }
 
 //PlayerGunShot is out of bounds, mark for deletion
@@ -49,6 +82,7 @@ PlayerGunShot::PlayerGunShot(df::Position tank_pos){
 	setSolidness(df::SOFT);
 
 	registerInterest(df::OUT_EVENT);
+	registerInterest(df::COLLISION_EVENT);
 
 	// Set starting location, based on tank's position passed in.
 	setPosition(tank_pos);

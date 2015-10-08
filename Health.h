@@ -6,7 +6,7 @@
 #include "ViewObject.h"
 #include "Event.h"
 
-#define HEALTH_STRING "HP: "
+#define HEALTH_STRING "Health: "
 
 class Health : public df::ViewObject{
 private:

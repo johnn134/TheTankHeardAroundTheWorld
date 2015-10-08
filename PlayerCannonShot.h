@@ -12,8 +12,12 @@ private:
 	//out of bounds
 	void out();
 
+	//collided with something
+	void hit(const df::EventCollision *p_event_collision);
+
 public:
 	PlayerCannonShot(df::Position tank_pos);
+	//~PlayerCannonShot();
 	int eventHandler(const df::Event *p_e);
 };
 #endif

@@ -23,6 +23,8 @@ private:
 	int wide_shotCD;
 	int cannon_CDRCD;
 	int angle_cannonCD;
+	int health;
+	int lives;
 	
 	//handle keyboard events
 	void kbd(const df::EventKeyboard *p_event_kbd);
@@ -54,7 +56,7 @@ private:
 
 public:
 	Tank();
-	//~Tank();
+	~Tank();
 	int eventHandler(const df::Event *p_e);
 };
 #endif

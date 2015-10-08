@@ -11,6 +11,7 @@ enum Ability{
 	WIDE_SHOT,
 	CANNON_CDR,
 	ANGLE_CANNON,
+	HEALTH_GET,
 };
 
 class PowerUp : public df::Object{
