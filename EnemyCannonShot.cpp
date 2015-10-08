@@ -64,7 +64,22 @@ void EnemyCannonShot::out() {
 
 // If cannon shot hits anything, delete it
 void EnemyCannonShot::hit(const df::EventCollision *p_collision_event) {
-	df::WorldManager &world_manager = df::WorldManager::getInstance();
-	new SmallExplosion(getPosition());
-	world_manager.markForDelete(this);
+	if (p_collision_event->getObject1()->getType() != "EnemyGunShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyGunShot" &&
+		p_collision_event->getObject1()->getType() != "EnemyRocketShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyRocketShot" &&
+		p_collision_event->getObject1()->getType() != "BarbWire" &&
+		p_collision_event->getObject2()->getType() != "BarbWire" &&
+		p_collision_event->getObject1()->getType() != "FootSoldier" &&
+		p_collision_event->getObject2()->getType() != "FootSoldier" &&
+		p_collision_event->getObject1()->getType() != "RocketSoldier" &&
+		p_collision_event->getObject2()->getType() != "RocketSoldier" &&
+		p_collision_event->getObject1()->getType() != "Helicopter" &&
+		p_collision_event->getObject2()->getType() != "Helicopter" &&
+		p_collision_event->getObject1()->getType() != "PlayerGunShot" &&
+		p_collision_event->getObject2()->getType() != "PlayerGunShot") {
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
+		new SmallExplosion(getPosition());
+		world_manager.markForDelete(this);
+	}
 }

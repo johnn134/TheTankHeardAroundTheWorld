@@ -30,6 +30,8 @@ LargeBuilding::LargeBuilding(df::Position p) {
 
 	setType("LargeBuilding");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 

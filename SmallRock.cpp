@@ -30,6 +30,8 @@ SmallRock::SmallRock(df::Position p) {
 
 	setType("SmallRock");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 

@@ -35,11 +35,10 @@ EnemyTank::EnemyTank(df::Position p, df::Object *new_player) {
 
 	setType("EnemyTank");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
-
-	//Set to move down constantly
-	setYVelocity(0.10f);
 
 	player = new_player;
 	fire_slowdown = 60;

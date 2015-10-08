@@ -30,6 +30,8 @@ LargeRock::LargeRock(df::Position p) {
 
 	setType("LargeRock");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 

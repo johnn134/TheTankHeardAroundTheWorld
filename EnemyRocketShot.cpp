@@ -64,10 +64,23 @@ void EnemyRocketShot::out() {
 
 // If Bullet hits Saucer, mark Saucer and Bullet for deletion.
 void EnemyRocketShot::hit(const df::EventCollision *p_collision_event) {
-	df::WorldManager &world_manager = df::WorldManager::getInstance();
+	if (p_collision_event->getObject1()->getType() != "EnemyGunShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyGunShot" &&
+		p_collision_event->getObject1()->getType() != "EnemyCannonShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyCannonShot" &&
+		p_collision_event->getObject1()->getType() != "BarbWire" &&
+		p_collision_event->getObject2()->getType() != "BarbWire" &&
+		p_collision_event->getObject1()->getType() != "FootSoldier" &&
+		p_collision_event->getObject2()->getType() != "FootSoldier" &&
+		p_collision_event->getObject1()->getType() != "RocketSoldier" &&
+		p_collision_event->getObject2()->getType() != "RocketSoldier" &&
+		p_collision_event->getObject1()->getType() != "Helicopter" &&
+		p_collision_event->getObject2()->getType() != "Helicopter") {
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
 
-	//Create explosion
-	SmallExplosion *p_explosion = new SmallExplosion(getPosition());
+		//Create explosion
+		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 
-	world_manager.markForDelete(this);
+		world_manager.markForDelete(this);
+	}
 }

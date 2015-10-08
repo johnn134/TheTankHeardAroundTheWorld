@@ -3,6 +3,7 @@
 */
 
 //Dragonfly Headers
+#include "EventView.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
 #include "WorldManager.h"
@@ -27,6 +28,8 @@ BarbWire::BarbWire(df::Position p) {
 	}
 
 	setType("BarbWire");
+
+	setSolidness(df::Solidness::SOFT);
 
 	//Set starting position
 	setPosition(p);

@@ -28,9 +28,10 @@ Landmine::Landmine(df::Position p) {
 
 	setType("Landmine");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
-	setYVelocity(0.1f);
 }
 
 // Handle event.

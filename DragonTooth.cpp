@@ -28,6 +28,8 @@ DragonTooth::DragonTooth(df::Position p) {
 
 	setType("DragonTooth");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 }

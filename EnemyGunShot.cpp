@@ -63,11 +63,28 @@ void EnemyGunShot::out() {
 
 // If gun shot hits anything, delete it
 void EnemyGunShot::hit(const df::EventCollision *p_collision_event) {
-	df::WorldManager &world_manager = df::WorldManager::getInstance();
+	if (p_collision_event->getObject1()->getType() != "EnemyCannonShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyCannonShot" &&
+		p_collision_event->getObject1()->getType() != "EnemyRocketShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyRocketShot" &&
+		p_collision_event->getObject1()->getType() != "BarbWire" &&
+		p_collision_event->getObject2()->getType() != "BarbWire" &&
+		p_collision_event->getObject1()->getType() != "FootSoldier" &&
+		p_collision_event->getObject2()->getType() != "FootSoldier" &&
+		p_collision_event->getObject1()->getType() != "RocketSoldier" &&
+		p_collision_event->getObject2()->getType() != "RocketSoldier" &&
+		p_collision_event->getObject1()->getType() != "Helicopter" &&
+		p_collision_event->getObject2()->getType() != "Helicopter" &&
+		p_collision_event->getObject1()->getType() != "PlayerGunShot" &&
+		p_collision_event->getObject2()->getType() != "PlayerGunShot" &&
+		p_collision_event->getObject1()->getType() != "PlayerCannonShot" &&
+		p_collision_event->getObject2()->getType() != "PlayerCannonShot") {
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
 
-	//Play gun impact sound
-	df::Sound *p_sound = df::ResourceManager::getInstance().getSound("gun-impact");
-	p_sound->play();
+		//Play gun impact sound
+		df::Sound *p_sound = df::ResourceManager::getInstance().getSound("gun-impact");
+		p_sound->play();
 
-	world_manager.markForDelete(this);
+		world_manager.markForDelete(this);
+	}
 }

@@ -32,9 +32,10 @@ Mortar::Mortar(df::Position p, df::Object *new_player) {
 
 	setType("Mortar");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
-	setYVelocity(0.1f);
 
 	player = new_player;
 	fire_slowdown = 60;

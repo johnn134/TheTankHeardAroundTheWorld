@@ -29,6 +29,8 @@ SmallBuilding::SmallBuilding(df::Position p) {
 
 	setType("SmallBuilding");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 

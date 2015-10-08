@@ -289,7 +289,7 @@ void Tank::moveOnY(int dy) {
 	// If stays on window, allow move
 	df::Position new_pos(getPosition().getX(), getPosition().getY() + dy);
 	df::WorldManager &world_manager = df::WorldManager::getInstance();
-	if ((new_pos.getY() > 4) && (new_pos.getY() < world_manager.getBoundary().getVertical() - 4))
+	if ((new_pos.getY() > 4) && (new_pos.getY() < world_manager.getView().getVertical() - 4))
 		world_manager.moveObject(this, new_pos);
 }
 
@@ -303,7 +303,8 @@ void Tank::moveOnX(int dx) {
 	// If stays on window, allow move
 	df::Position new_pos(getPosition().getX() + dx, getPosition().getY());
 	df::WorldManager &world_manager = df::WorldManager::getInstance();
-	if ((new_pos.getX() > 4) && (new_pos.getX() < world_manager.getBoundary().getHorizontal() - 4))
+	if ((new_pos.getX() > world_manager.getView().getCorner().getX() + 4) && 
+		(new_pos.getX() < world_manager.getView().getCorner().getX() + world_manager.getView().getHorizontal() - 4))
 		world_manager.moveObject(this, new_pos);
 }
 
@@ -351,8 +352,8 @@ Tank::Tank(){
 	}
 
 	setType("Tank");
-	df::Position pos(world_manager.getBoundary().getHorizontal() / 2, world_manager.getBoundary().getVertical() - 5);
-	setPosition(pos);
+	df::Position pos(world_manager.getView().getHorizontal() / 2, world_manager.getView().getVertical() - 5);
+	setPosition(viewToWorld(pos));
 
 	registerInterest(df::KEYBOARD_EVENT);
 	registerInterest(df::STEP_EVENT);

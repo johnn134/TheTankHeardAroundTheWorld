@@ -30,6 +30,8 @@ MediumRock::MediumRock(df::Position p) {
 
 	setType("MediumRock");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 

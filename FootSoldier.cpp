@@ -35,14 +35,13 @@ FootSoldier::FootSoldier(df::Position p, df::Object *new_player) {
 
 	setType("FootSoldier");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Register interests
 	registerInterest(df::STEP_EVENT);
 
 	//Set starting position
 	setPosition(p);
-
-	//Set to move down constantly
-	setYVelocity(0.10f);
 
 	player = new_player;
 	fire_slowdown = 15;

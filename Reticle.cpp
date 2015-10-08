@@ -1,6 +1,7 @@
 #include "Reticle.h"
 #include "EventMouse.h"
 #include "GraphicsManager.h"
+#include "utility.h"
 #include "WorldManager.h"
 
 //event handler
@@ -11,7 +12,7 @@ int Reticle::eventHandler(const df::Event *p_e) {
 
 		if (p_mouse_event->getMouseAction() == df::MOVED) {
 			// Change location to new mouse position
-			setPosition(p_mouse_event->getMousePosition());
+			setPosition(viewToWorld(p_mouse_event->getMousePosition()));
 			return 1;
 		}
 	}
@@ -42,8 +43,8 @@ Reticle::Reticle(){
 	registerInterest(df::A_MOUSE_EVENT);
 
 	//start in center of screen
-	int world_h = world_manager.getBoundary().getHorizontal();
-	int world_v = world_manager.getBoundary().getVertical();
-	df::Position pos(world_h / 2, world_v / 2);
-	setPosition(pos);
+	int view_h = world_manager.getView().getHorizontal();
+	int view_v = world_manager.getView().getVertical();
+	df::Position pos(view_h / 2, view_v / 2);
+	setPosition(df::viewToWorld(pos));
 }

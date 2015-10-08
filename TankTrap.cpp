@@ -26,6 +26,8 @@ TankTrap::TankTrap(df::Position p) {
 
 	setType("TankTrap");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 }

@@ -26,6 +26,8 @@ Trench::Trench(df::Position p) {
 
 	setType("Trench");
 
+	setSolidness(df::Solidness::SOFT);
+
 	//Set starting position
 	setPosition(p);
 }
