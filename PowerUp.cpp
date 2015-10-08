@@ -19,16 +19,16 @@ PowerUp::PowerUp(Ability init_ability, df::Position p){
 
 	switch (ability){
 	case WIDE_SHOT:
-		request = "power-up2";
+		request = "powerup2";
 		break;
 	case CANNON_CDR:
-		request = "power-up1";
+		request = "powerup1";
 		break;
 	case ANGLE_CANNON:
-		request = "power-up3";
+		request = "powerup3";
 		break;
 	default:
-		request = "power-up";
+		request = "powerup";
 		break;
 	}
 	p_temp_sprite = resource_manager.getSprite(request);

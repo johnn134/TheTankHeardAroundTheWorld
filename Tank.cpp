@@ -48,12 +48,17 @@ int Tank::eventHandler(const df::Event *p_e) {
 
 void Tank::hit(const df::EventCollision *p_event_collision){
 	//hit a powerup
-	if (p_event_collision->getObject2()->getType() == "PowerUp"){
+	if (p_event_collision->getObject2()->getType() == "PowerUp" || p_event_collision->getObject1()->getType() == "PowerUp"){
 		// Play "power-up-get" sound.
 		df::Sound *p_sound = df::ResourceManager::getInstance().getSound("power-up-get");
 		p_sound->play();
 
-		PowerUp *p_powerUp = (PowerUp *)(p_event_collision->getObject2());
+		PowerUp *p_powerUp;
+
+		if (p_event_collision->getObject2()->getType() == "PowerUp")
+			p_powerUp = (PowerUp *)(p_event_collision->getObject2());
+		else
+			p_powerUp = (PowerUp *)(p_event_collision->getObject1());
 
 		//get power up depending on powerup's ability
 		if (p_powerUp->getAbility() == WIDE_SHOT){
@@ -164,9 +169,9 @@ void Tank::fireCannon(){
 		return;
 
 	if (cannon_CDR)
-		cannonCD = 50;
+		cannonCD = 30;
 	else
-		cannonCD = 100;
+		cannonCD = 60;
 
 	// Play "cannonFire" sound.
 	df::Sound *p_sound = df::ResourceManager::getInstance().getSound("cannon-shot");
@@ -346,7 +351,7 @@ Tank::Tank(){
 	}
 
 	setType("Tank");
-	df::Position pos(world_manager.getBoundary().getHorizontal() / 2, world_manager.getBoundary().getVertical() / 2 + 7);
+	df::Position pos(world_manager.getBoundary().getHorizontal() / 2, world_manager.getBoundary().getVertical() - 5);
 	setPosition(pos);
 
 	registerInterest(df::KEYBOARD_EVENT);
