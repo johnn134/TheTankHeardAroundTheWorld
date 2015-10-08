@@ -23,9 +23,7 @@ private:
 	int wide_shotCD;
 	int cannon_CDRCD;
 	int angle_cannonCD;
-	bool scroll;
-	int scroll_countdown;
-
+	
 	//handle keyboard events
 	void kbd(const df::EventKeyboard *p_event_kbd);
 

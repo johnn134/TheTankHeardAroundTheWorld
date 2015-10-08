@@ -10,6 +10,7 @@
 #include "PlayerGunShot.h"
 #include "PlayerCannonShot.h"
 #include "PowerUp.h"
+#include "EnemyGunShot.h"
 
 int Tank::eventHandler(const df::Event *p_e) {
 	//catch keyboard events
@@ -107,18 +108,16 @@ void Tank::kbd(const df::EventKeyboard *p_keyboard_event) {
 		if (p_keyboard_event->getKeyboardAction() == df::KEY_DOWN)
 			fireCannon();
 			break;
+
+	case df::Keyboard::T: //test enemy bullet
+		if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED)
+			new EnemyGunShot(getPosition());
+		break;
 	}
 }
 
 // Decrease rate restriction counters and send a scroll event to all other game objects if scrolling
 void Tank::step() {
-	if (scroll){
-		scroll_countdown--;
-		if (scroll_countdown < 0){
-			//send scroll event
-		}
-	}
-
 	// Move countdown
 	move_countdown--;
 	if (move_countdown < 0)
@@ -347,7 +346,7 @@ Tank::Tank(){
 	}
 
 	setType("Tank");
-	df::Position pos(world_manager.getBoundary().getHorizontal() / 2, world_manager.getBoundary().getVertical() / 2);
+	df::Position pos(world_manager.getBoundary().getHorizontal() / 2, world_manager.getBoundary().getVertical() / 2 + 7);
 	setPosition(pos);
 
 	registerInterest(df::KEYBOARD_EVENT);
@@ -371,6 +370,4 @@ Tank::Tank(){
 	wide_shotCD = 0;
 	cannon_CDRCD = 0;
 	angle_cannonCD = 0;
-	scroll = true;
-	scroll_countdown = 0;
 }
