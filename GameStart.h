@@ -5,7 +5,7 @@
 #include "Music.h"
 #include "ViewObject.h"
 
-const float SCROLL_SPEED = 0.20f;
+const float SCROLL_SPEED = 0.40f;
 
 class GameStart : public df::ViewObject {
 

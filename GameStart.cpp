@@ -171,17 +171,171 @@ void GameStart::start() {
 	p_m = new MediumRock(df::Position(x_mid - 2, offset - 6));
 	p_m->setYVelocity(SCROLL_SPEED);
 
-	p_m = new FootSoldier(df::Position(x_mid - 7, offset - 10), p_t);
+	p_m = new FootSoldier(df::Position(x_mid - 8, offset - 10), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
 
-	p_m = new FootSoldier(df::Position(x_mid + 3, offset - 11), p_t);
+	p_m = new FootSoldier(df::Position(x_mid + 4, offset - 11), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new LargeRock(df::Position(x_left + 9, offset - 50));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new LargeRock(df::Position(x_right - 9, offset - 50));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new SmallRock(df::Position(x_mid, offset - 51));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new RocketSoldier(df::Position(x_left + 20, offset - 50), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new RocketSoldier(df::Position(x_right - 20, offset - 50), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new FootSoldier(df::Position(x_left + 10, offset - 45), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new FootSoldier(df::Position(x_left + 7, offset - 43), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new FootSoldier(df::Position(x_right - 10, offset - 45), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new FootSoldier(df::Position(x_right - 7, offset - 43), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
 
 	//121 - 180; mortars
 	offset = -120;
+	p_m = new Mortar(df::Position(x_left + 4, offset - 25), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new LargeRock(df::Position(x_left + 9, offset - 20));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new LargeRock(df::Position(x_left + 6, offset - 30));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new MediumRock(df::Position(x_left + 13, offset - 25));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new Mortar(df::Position(x_right - 4, offset - 26), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new LargeRock(df::Position(x_right - 9, offset - 21));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new LargeRock(df::Position(x_right - 6, offset - 31));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new MediumRock(df::Position(x_right - 13, offset - 26));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new LargeRock(df::Position(x_mid, offset - 55));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new Mortar(df::Position(x_mid - 3, offset - 50), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new Mortar(df::Position(x_mid + 3, offset - 50), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new MediumRock(df::Position(x_mid - 10, offset - 50));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new MediumRock(df::Position(x_mid + 10, offset - 50));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new SmallRock(df::Position(x_mid - 8, offset - 46));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new SmallRock(df::Position(x_mid + 8, offset - 46));
+	p_m->setYVelocity(SCROLL_SPEED);
 
 	//181 - 240; No man's land - American side
 	offset = -180;
+	p_m = new BarbWire(df::Position(x_left + 7, offset - 29));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new BarbWire(df::Position(x_mid, offset - 29));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new BarbWire(df::Position(x_right - 7, offset - 29));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new BarbWire(df::Position(x_mid - 14, offset - 31));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new BarbWire(df::Position(x_mid + 14, offset - 31));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 2, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 6, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 10, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 14, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 18, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 22, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 4, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 8, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 12, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 16, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_left + 20, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 2, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 6, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 10, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 14, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 18, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 22, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 4, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 8, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 12, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 16, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 20, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+
+	p_m = new DragonTooth(df::Position(x_right - 20, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
 
 	//241 - 300; No man's land - Middle
 	offset = -240;
