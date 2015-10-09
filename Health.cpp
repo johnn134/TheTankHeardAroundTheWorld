@@ -13,5 +13,4 @@ Health::Health(){
 	setLocation(df::BOTTOM_RIGHT);
 	setViewString(HEALTH_STRING);
 	setColor(df::BLACK);
-	setValue(10);
 }

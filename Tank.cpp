@@ -10,7 +10,10 @@
 #include "PlayerGunShot.h"
 #include "PlayerCannonShot.h"
 #include "PowerUp.h"
+#include "Health.h"
+#include "Lives.h"
 #include "EnemyGunShot.h"
+#include "EventView.h"
 
 int Tank::eventHandler(const df::Event *p_e) {
 	//catch keyboard events
@@ -73,11 +76,59 @@ void Tank::hit(const df::EventCollision *p_event_collision){
 			angle_cannonCD = 500;
 			angle_cannon = true;
 		}
+		else if (p_powerUp->getAbility() == HEALTH_GET){
+			health++;
+		}
 
 		//delete powerup
 		df::WorldManager &wm = df::WorldManager::getInstance();
 		wm.markForDelete(p_powerUp);
 	}
+
+	//1 damage sources
+	if (p_event_collision->getObject2()->getType() == "EnemyGunShot" ||
+		p_event_collision->getObject1()->getType() == "EnemyGunShot" ||
+		p_event_collision->getObject2()->getType() == "SmallRock" ||
+		p_event_collision->getObject1()->getType() == "SmallRock" ||
+		p_event_collision->getObject2()->getType() == "BarbWire" ||
+		p_event_collision->getObject1()->getType() == "BarbWire")
+		health--;
+	//2 damage sources
+	if (p_event_collision->getObject2()->getType() == "EnemyRocketShot" ||
+		p_event_collision->getObject1()->getType() == "EnemyRocketShot" ||
+		p_event_collision->getObject2()->getType() == "SmallBuilding" ||
+		p_event_collision->getObject1()->getType() == "SmallBuilding" ||
+		p_event_collision->getObject2()->getType() == "DragonTooth" ||
+		p_event_collision->getObject1()->getType() == "DragonTooth")
+		health -= 2;
+	//3 damage sources
+	if (p_event_collision->getObject2()->getType() == "EnemyBombShot" ||
+		p_event_collision->getObject1()->getType() == "EnemyBombShot" ||
+		p_event_collision->getObject2()->getType() == "MediumRock" ||
+		p_event_collision->getObject1()->getType() == "MediumRock" ||
+		p_event_collision->getObject2()->getType() == "Trench" ||
+		p_event_collision->getObject1()->getType() == "Trench" ||
+		p_event_collision->getObject2()->getType() == "Jeep" ||
+		p_event_collision->getObject1()->getType() == "Jeep")
+		health -= 3;
+	//4 damage sources
+	if (p_event_collision->getObject2()->getType() == "LargeRock" ||
+		p_event_collision->getObject1()->getType() == "LargeRock" ||
+		p_event_collision->getObject2()->getType() == "MediumBuilding" ||
+		p_event_collision->getObject1()->getType() == "MediumBuilding" ||
+		p_event_collision->getObject2()->getType() == "Bunker" ||
+		p_event_collision->getObject1()->getType() == "Bunker" ||
+		p_event_collision->getObject2()->getType() == "TankTrap" ||
+		p_event_collision->getObject1()->getType() == "TankTrap")
+		health -= 4;
+	//5 damage sources
+	if (p_event_collision->getObject2()->getType() == "EnemyCannonShot" ||
+		p_event_collision->getObject1()->getType() == "EnemyCannonShot" ||
+		p_event_collision->getObject2()->getType() == "LargeBuilding" ||
+		p_event_collision->getObject1()->getType() == "LargeBuilding" ||
+		p_event_collision->getObject2()->getType() == "Landmine" ||
+		p_event_collision->getObject1()->getType() == "Landmine")
+		health -= 5;
 }
 
 void Tank::kbd(const df::EventKeyboard *p_keyboard_event) {
@@ -154,6 +205,29 @@ void Tank::step() {
 		angle_cannonCD = 0;
 		angle_cannon = false;
 	}
+
+	df::WorldManager &wm = df::WorldManager::getInstance();
+
+	//am i dead?
+	if (health < 1){
+		//did i lose?
+		if (lives < 1){
+			wm.markForDelete(this);
+			//call for the game/level to be reset
+		}
+		else{
+			//pause game for a short while
+
+			//replace tank at starting position
+			df::Position pos(wm.getView().getHorizontal() / 2, wm.getView().getVertical() - 5);
+			setPosition(viewToWorld(pos));
+		}
+	}
+
+	//send health to the health view object and lives to lives view object
+	df::EventView ev(HEALTH_STRING, health, false);
+	df::EventView ev(LIVES_STRING, lives, false);
+	wm.onEvent(&ev);
 }
 
 void Tank::mouse(const df::EventMouse *p_event_mouse){
@@ -298,7 +372,7 @@ void Tank::moveOnX(int dx) {
 	// See if time to move
 	if (move_countdown > 0)
 		return;
-	move_countdown = move_slowdown;
+	move_countdown = move_slowdown -1;
 
 	// If stays on window, allow move
 	df::Position new_pos(getPosition().getX() + dx, getPosition().getY());
@@ -334,6 +408,11 @@ void Tank::draw(void){
 	ghm.drawFrame(getPosition(), getSprite()->getFrame(dir_frame), true);
 }
 
+Tank::~Tank(){
+	df::GameManager &gm = df::GameManager::getInstance();
+	gm.setGameOver(true);
+}
+
 Tank::Tank(){
 	df::WorldManager &world_manager = df::WorldManager::getInstance();
 	df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
@@ -348,6 +427,7 @@ Tank::Tank(){
 	else {
 		setSprite(p_temp_sprite);
 		setSpriteSlowdown(0);
+		setAltitude(3);
 		//setTransparency();	   // Transparent sprite.
 	}
 
@@ -360,7 +440,7 @@ Tank::Tank(){
 	registerInterest(df::A_MOUSE_EVENT);
 	registerInterest(df::COLLISION_EVENT);
 
-	setSolidness(df::SOFT);
+	setSolidness(df::HARD);
 
 	//make aming reticle
 	p_reticle = new Reticle();
@@ -376,4 +456,6 @@ Tank::Tank(){
 	wide_shotCD = 0;
 	cannon_CDRCD = 0;
 	angle_cannonCD = 0;
+	health = 10;
+	lives = 3;
 }

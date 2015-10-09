@@ -25,6 +25,9 @@ PowerUp::PowerUp(Ability init_ability, df::Position p){
 		request = "powerup1";
 		break;
 	case ANGLE_CANNON:
+		request = "powerup";
+		break;
+	case HEALTH_GET:
 		request = "powerup3";
 		break;
 	default:
