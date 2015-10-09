@@ -50,6 +50,8 @@ Helicopter::Helicopter(df::Position p) {
 	//Start helicopter sound
 	df::Sound *p_sound = df::ResourceManager::getInstance().getSound("chopper-props");
 	p_sound->play(true);
+
+	paused = false;
 }
 
 // Handle event.
@@ -69,25 +71,32 @@ int Helicopter::eventHandler(const df::Event *p_e) {
 	return 0;
 }
 
+//Set whether the gameobject is paused or not
+void Helicopter::setPause(bool new_pause) {
+	paused = new_pause;
+}
+
 void Helicopter::step() {
-	//Fire countdown.
-	fire_countdown--;
-	if (fire_countdown < 0)
-		fire_countdown = 0;
+	if (!paused) {
+		//Fire countdown.
+		fire_countdown--;
+		if (fire_countdown < 0)
+			fire_countdown = 0;
 
-	//Sprite countdown
-	anim_countdown--;
-	if (anim_countdown < 0)
-		anim_countdown = 0;
+		//Sprite countdown
+		anim_countdown--;
+		if (anim_countdown < 0)
+			anim_countdown = 0;
 
-	//Check if needs to turn
-	if (getPosition().getX() < 5) {
-		flying_right = true;
-		setXVelocity(1);
-	}
-	if (getPosition().getX() > df::WorldManager::getInstance().getBoundary().getHorizontal() - 5) {
-		flying_right = false;
-		setXVelocity(-1);
+		//Check if needs to turn
+		if (getPosition().getX() < 5) {
+			flying_right = true;
+			setXVelocity(1);
+		}
+		if (getPosition().getX() > df::WorldManager::getInstance().getBoundary().getHorizontal() - 5) {
+			flying_right = false;
+			setXVelocity(-1);
+		}
 	}
 }
 

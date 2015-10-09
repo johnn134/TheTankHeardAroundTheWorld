@@ -225,9 +225,10 @@ void Tank::step() {
 	}
 
 	//send health to the health view object and lives to lives view object
-	df::EventView ev(HEALTH_STRING, health, false);
-	df::EventView ev(LIVES_STRING, lives, false);
-	wm.onEvent(&ev);
+	df::EventView ev1(HEALTH_STRING, health, false);
+	df::EventView ev2(LIVES_STRING, lives, false);
+	wm.onEvent(&ev1);
+	wm.onEvent(&ev2);
 }
 
 void Tank::mouse(const df::EventMouse *p_event_mouse){
@@ -456,6 +457,6 @@ Tank::Tank(){
 	wide_shotCD = 0;
 	cannon_CDRCD = 0;
 	angle_cannonCD = 0;
-	health = 10;
-	lives = 3;
+	health = TANK_HEALTH;
+	lives = 1;
 }

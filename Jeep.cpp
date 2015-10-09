@@ -51,6 +51,8 @@ Jeep::Jeep(df::Position p, df::Object *new_player) {
 	hit_countdown = hit_slowdown;
 	was_hit = false;
 	has_flashed = false;
+
+	paused = false;
 }
 
 // Handle event.
@@ -70,33 +72,40 @@ int Jeep::eventHandler(const df::Event *p_e) {
 	return 0;
 }
 
+//Set whether the gameobject is paused or not
+void Jeep::setPause(bool new_pause) {
+	paused = new_pause;
+}
+
 void Jeep::step() {
-	// Hit countdown
-	if (was_hit) {
-		hit_countdown--;
-		if (hit_countdown < 0) {
-			hit_countdown = 0;
-			was_hit = false;
+	if (!paused) {
+		// Hit countdown
+		if (was_hit) {
+			hit_countdown--;
+			if (hit_countdown < 0) {
+				hit_countdown = 0;
+				was_hit = false;
+			}
 		}
+
+		//Firing animation countdown
+		anim_countdown--;
+		if (anim_countdown < 0)
+			anim_countdown = 0;
+
+		//See if firing is finished
+		if (anim_countdown <= 0) {
+			curFrame++;
+			if (curFrame > 3)
+				curFrame = 0;
+			anim_countdown = anim_slowdown;
+		}
+
+		// Fire countdown.
+		fire_countdown--;
+		if (fire_countdown < 0)
+			fire_countdown = 0;
 	}
-
-	//Firing animation countdown
-	anim_countdown--;
-	if (anim_countdown < 0)
-		anim_countdown = 0;
-
-	//See if firing is finished
-	if (anim_countdown <= 0) {
-		curFrame++;
-		if (curFrame > 3)
-			curFrame = 0;
-		anim_countdown = anim_slowdown;
-	}
-
-	// Fire countdown.
-	fire_countdown--;
-	if (fire_countdown < 0)
-		fire_countdown = 0;
 }
 
 void Jeep::fire() {

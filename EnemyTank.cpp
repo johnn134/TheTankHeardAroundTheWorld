@@ -45,6 +45,8 @@ EnemyTank::EnemyTank(df::Position p, df::Object *new_player) {
 	fire_countdown = fire_slowdown;
 	move_slowdown = 5;
 	move_countdown = move_slowdown;
+	
+	paused = false;
 }
 
 // Handle event.
@@ -64,26 +66,33 @@ int EnemyTank::eventHandler(const df::Event *p_e) {
 	return 0;
 }
 
+//Set whether the gameobject is paused or not
+void EnemyTank::setPause(bool new_pause) {
+	paused = new_pause;
+}
+
 void EnemyTank::step() {
-	// Fire countdown.
-	fire_countdown--;
-	if (fire_countdown < 0)
-		fire_countdown = 0;
+	if (!paused) {
+		// Fire countdown.
+		fire_countdown--;
+		if (fire_countdown < 0)
+			fire_countdown = 0;
 
-	// Move countdown.
-	move_countdown--;
-	if (move_countdown < 0)
-		move_countdown = 0;
+		// Move countdown.
+		move_countdown--;
+		if (move_countdown < 0)
+			move_countdown = 0;
 
-	//Move towards player
-	if (getPosition().getX() < player->getPosition().getX()) {
-		move(1);
-	}
-	else if (getPosition().getX() > player->getPosition().getX()) {
-		move(-1);
-	}
-	else {
-		setXVelocity(0);
+		//Move towards player
+		if (getPosition().getX() < player->getPosition().getX()) {
+			move(1);
+		}
+		else if (getPosition().getX() > player->getPosition().getX()) {
+			move(-1);
+		}
+		else {
+			setXVelocity(0);
+		}
 	}
 }
 

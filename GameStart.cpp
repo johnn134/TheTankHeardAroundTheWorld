@@ -21,14 +21,18 @@
 #include "GameStart.h"
 #include "Health.h"
 #include "Helicopter.h"
+#include "HoChiMinh.h"
 #include "Jeep.h"
 #include "Landmine.h"
 #include "LargeBuilding.h"
 #include "LargeRock.h"
+#include "Lives.h"
 #include "MediumBuilding.h"
 #include "MediumRock.h"
 #include "Mortar.h"
+#include "PowerUp.h"
 #include "RocketSoldier.h"
+#include "Score.h"
 #include "SmallBuilding.h"
 #include "SmallRock.h"
 #include "Tank.h"
@@ -83,6 +87,7 @@ void GameStart::start() {
 	/*** Build Game World ***/
 	// Create Player.
 	Tank *p_t = new Tank();
+	new Score();
 	
 	//Create Enemies and Obstacles
 	Object *p_m;
@@ -339,6 +344,8 @@ void GameStart::start() {
 
 	//241 - 300; No man's land - Middle
 	offset = -240;
+	p_m = new HoChiMinh(df::Position(x_mid, offset - 30), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
 
 	//301 - 360; No man's land - Vietnamese side
 	offset = -300;

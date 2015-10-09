@@ -78,7 +78,9 @@ void EnemyGunShot::hit(const df::EventCollision *p_collision_event) {
 		p_collision_event->getObject1()->getType() != "PlayerGunShot" &&
 		p_collision_event->getObject2()->getType() != "PlayerGunShot" &&
 		p_collision_event->getObject1()->getType() != "PlayerCannonShot" &&
-		p_collision_event->getObject2()->getType() != "PlayerCannonShot") {
+		p_collision_event->getObject2()->getType() != "PlayerCannonShot" &&
+		p_collision_event->getObject1()->getType() != "Powerup" &&
+		p_collision_event->getObject2()->getType() != "Powerup") {
 		df::WorldManager &world_manager = df::WorldManager::getInstance();
 
 		//Play gun impact sound

@@ -1,23 +1,29 @@
 /*
-* FootSoldier.h
+* HoChiMinh.h
 */
 
-#ifndef __FOOTSOLDIER_H__
-#define __FOOTSOLDIER_H__
+#ifndef __HOCHIMINH_H__
+#define __HOCHIMINH_H__
 
 //Dragonfly Headers
 #include "EventCollision.h"
-#include "HoChiMinh.h"
+#include "FootSoldier.h"
 #include "Object.h"
 #include "Position.h"
 
-class FootSoldier : public df::Object {
+const int HOCHIMINH_HEALTH = 3;
+
+class HoChiMinh : public df::Object {
 private:
 	df::Object *player;
-	df::Object *boss;
+	df::Object *soldier1;
+	df::Object *soldier2;
+	df::Object *soldier3;
+	int health;
 	int fire_slowdown;
 	int fire_countdown;
-	bool paused;
+	bool in_position;
+	bool mouth_open;
 
 	void step();
 	void fire();
@@ -27,14 +33,13 @@ private:
 	void draw(void);
 
 public:
-	FootSoldier(df::Position p, df::Object *new_player);
-	FootSoldier(df::Position p, df::Object *new_player, df::Object *new_boss);
+	HoChiMinh(df::Position p, df::Object *new_player);
 
 	// Handle event.
 	// Return 0 if ignored, else 1.
 	int eventHandler(const df::Event *p_e);
 
-	//Set whether the gameobject is paused or not
-	void setPause(bool new_pause);
+	//Confirm that soldier is dead
+	void soldierDied(df::Object *s);
 };
 #endif

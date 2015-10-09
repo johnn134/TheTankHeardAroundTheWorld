@@ -10,6 +10,8 @@
 #include "Reticle.h"
 #include "Position.h"
 
+const int TANK_HEALTH = 50;
+
 class Tank : public df::Object{
 
 private:

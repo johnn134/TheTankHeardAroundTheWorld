@@ -44,12 +44,15 @@ RocketSoldier::RocketSoldier(df::Position p, df::Object *new_player) {
 	fire_slowdown = 60;
 	fire_countdown = fire_slowdown;
 	rocketInTube = true;
+
+	paused = false;
 }
 
 // Handle event.
 // Return 0 if ignored, else 1.
 int RocketSoldier::eventHandler(const df::Event *p_e) {
 	if (p_e->getType() == df::STEP_EVENT) {
+		step();
 		fire();
 		return 1;
 	}
@@ -62,15 +65,25 @@ int RocketSoldier::eventHandler(const df::Event *p_e) {
 	return 0;
 }
 
-void RocketSoldier::fire() {
-	// Fire countdown.
-	fire_countdown--;
-	if (fire_countdown < 0)
-		fire_countdown = 0;
+//Set whether the gameobject is paused or not
+void RocketSoldier::setPause(bool new_pause) {
+	paused = new_pause;
+}
 
-	//See if rocket should be placed in tube
-	if (fire_countdown < fire_slowdown / 3)
-		rocketInTube = true;
+void RocketSoldier::step() {
+	if (!paused) {
+		// Fire countdown.
+		fire_countdown--;
+		if (fire_countdown < 0)
+			fire_countdown = 0;
+
+		//See if rocket should be placed in tube
+		if (fire_countdown < fire_slowdown / 3)
+			rocketInTube = true;
+	}
+}
+
+void RocketSoldier::fire() {
 
 	// See if time to fire.
 	if (fire_countdown > 0)
@@ -106,7 +119,9 @@ void RocketSoldier::hit(const df::EventCollision *p_collision_event) {
 	if ((p_collision_event->getObject1()->getType() == "PlayerGunShot") ||
 		(p_collision_event->getObject2()->getType() == "PlayerGunShot") ||
 		(p_collision_event->getObject1()->getType() == "PlayerCannonShot") ||
-		(p_collision_event->getObject2()->getType() == "PlayerCannonShot")) {
+		(p_collision_event->getObject2()->getType() == "PlayerCannonShot") ||
+		(p_collision_event->getObject1()->getType() == "Tank") ||
+		(p_collision_event->getObject2()->getType() == "Tank")) {
 
 		// Create an explosion.
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
