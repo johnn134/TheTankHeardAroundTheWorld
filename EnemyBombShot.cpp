@@ -57,12 +57,17 @@ int EnemyBombShot::eventHandler(const df::Event *p_e) {
 // If Bullet hits Saucer, mark Saucer and Bullet for deletion.
 void EnemyBombShot::step() {
 	time_to_live--;
-	if (time_to_live <= 2) {
-		setSolidness(df::Solidness::SOFT);
-	}
 	if (time_to_live <= 0){
 		df::WorldManager &world_manager = df::WorldManager::getInstance();
+
+		//Create explosion at position
 		new SmallExplosion(getPosition());
+
+		//Check for collision with player tank
+		setSolidness(df::Solidness::SOFT);
+		world_manager.moveObject(this, getPosition());
+
+		//Delete this object
 		world_manager.markForDelete(this);
 	}
 }

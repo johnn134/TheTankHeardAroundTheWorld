@@ -44,8 +44,6 @@ RocketSoldier::RocketSoldier(df::Position p, df::Object *new_player) {
 	fire_slowdown = 60;
 	fire_countdown = fire_slowdown;
 	rocketInTube = true;
-
-	paused = false;
 }
 
 // Handle event.
@@ -65,22 +63,15 @@ int RocketSoldier::eventHandler(const df::Event *p_e) {
 	return 0;
 }
 
-//Set whether the gameobject is paused or not
-void RocketSoldier::setPause(bool new_pause) {
-	paused = new_pause;
-}
-
 void RocketSoldier::step() {
-	if (!paused) {
-		// Fire countdown.
-		fire_countdown--;
-		if (fire_countdown < 0)
-			fire_countdown = 0;
+	// Fire countdown.
+	fire_countdown--;
+	if (fire_countdown < 0)
+		fire_countdown = 0;
 
-		//See if rocket should be placed in tube
-		if (fire_countdown < fire_slowdown / 3)
-			rocketInTube = true;
-	}
+	//See if rocket should be placed in tube
+	if (fire_countdown < fire_slowdown / 3)
+		rocketInTube = true;
 }
 
 void RocketSoldier::fire() {

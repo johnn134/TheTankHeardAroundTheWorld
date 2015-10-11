@@ -3,6 +3,7 @@
 */
 
 //Dragonfly Headers
+#include "EventOut.h"
 #include "EventStep.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
@@ -45,6 +46,10 @@ LargeBuilding::LargeBuilding(df::Position p) {
 // Handle event.
 // Return 0 if ignored, else 1.
 int LargeBuilding::eventHandler(const df::Event *p_e) {
+	if (p_e->getType() == df::OUT_EVENT) {
+		df::WorldManager::getInstance().markForDelete(this);
+		return 1;
+	}
 	if (p_e->getType() == df::STEP_EVENT) {
 		step();
 		return 1;

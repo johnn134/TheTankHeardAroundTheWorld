@@ -3,6 +3,7 @@
 */
 
 //Dragonfly Headers
+#include "EventOut.h"
 #include "EventStep.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
@@ -47,6 +48,10 @@ LargeRock::LargeRock(df::Position p) {
 int LargeRock::eventHandler(const df::Event *p_e) {
 	if (p_e->getType() == df::STEP_EVENT) {
 		step();
+		return 1;
+	}
+	if (p_e->getType() == df::OUT_EVENT) {
+		df::WorldManager::getInstance().markForDelete(this);
 		return 1;
 	}
 

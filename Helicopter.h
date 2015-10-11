@@ -19,7 +19,6 @@ private:
 	int health;
 	bool flying_right;
 	bool first_frame;
-	bool paused;
 
 	void fire();
 	void step();
@@ -34,8 +33,5 @@ public:
 	// Handle event.
 	// Return 0 if ignored, else 1.
 	int eventHandler(const df::Event *p_e);
-
-	//Set whether the gameobject is paused or not
-	void setPause(bool new_pause);
 };
 #endif

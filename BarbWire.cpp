@@ -3,6 +3,7 @@
 */
 
 //Dragonfly Headers
+#include "EventOut.h"
 #include "EventView.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
@@ -41,6 +42,10 @@ int BarbWire::eventHandler(const df::Event *p_e) {
 	if (p_e->getType() == df::COLLISION_EVENT) {
 		const df::EventCollision *p_collision_event = dynamic_cast <df::EventCollision const *> (p_e);
 		hit(p_collision_event);
+		return 1;
+	}
+	if (p_e->getType() == df::OUT_EVENT) {
+		df::WorldManager::getInstance().markForDelete(this);
 		return 1;
 	}
 

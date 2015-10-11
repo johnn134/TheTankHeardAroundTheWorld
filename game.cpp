@@ -3,14 +3,20 @@
 // 
 
 // Engine includes.
+#include "Color.h"
 #include "GameManager.h"
-#include "LogManager.h"
 #include "GraphicsManager.h"
+#include "LogManager.h"
+#include "Position.h"
 #include "ResourceManager.h"
 #include "utility.h"
-#include "Color.h"
+#include "WorldManager.h"
 
+//Game Headers
 #include "Tank.h"
+#include "SmallRock.h"
+#include "MediumRock.h"
+#include "LargeRock.h"
 
 void loadResources(void);
 void populateWorld(void);
@@ -57,9 +63,24 @@ void loadResources(void){
 	// Load sprites
 	if(!resource_manager.loadSprite("./sprites/player-tank-spr.txt", "player"))
 		log_manager.writeLog("Successfully loaded player-tank-spr.txt.");
+	if (!resource_manager.loadSprite("./sprites/small-rock-spr.txt", "smallrock"))
+		log_manager.writeLog("Successfully loaded small-rock-spr.txt.");
+	if (!resource_manager.loadSprite("./sprites/medium-rock-spr.txt", "mediumrock"))
+		log_manager.writeLog("Successfully loaded medium-rock-spr.txt.");
+	if (!resource_manager.loadSprite("./sprites/large-rock-spr.txt", "largerock"))
+		log_manager.writeLog("Successfully loaded large-rock-spr.txt.");
 }
 
 // Populate world with some objects.
 void populateWorld() {
 	new Tank;
+	df::Position pos1(df::WorldManager::getInstance().getBoundary().getHorizontal() / 4, df::WorldManager::getInstance().getBoundary().getVertical() / 2);
+	df::Position pos2(df::WorldManager::getInstance().getBoundary().getHorizontal() / 2, df::WorldManager::getInstance().getBoundary().getVertical() / 2);
+	df::Position pos3(df::WorldManager::getInstance().getBoundary().getHorizontal() * 3 / 4, df::WorldManager::getInstance().getBoundary().getVertical() / 2);
+	df::Position pos4(df::WorldManager::getInstance().getBoundary().getHorizontal() / 4, df::WorldManager::getInstance().getBoundary().getVertical() / 4);
+	df::Position pos5(df::WorldManager::getInstance().getBoundary().getHorizontal() / 2, df::WorldManager::getInstance().getBoundary().getVertical() / 4);
+	df::Position pos6(df::WorldManager::getInstance().getBoundary().getHorizontal() * 3 / 4, df::WorldManager::getInstance().getBoundary().getVertical() / 4);
+	new SmallRock(pos1);
+	new MediumRock(pos2);
+	new LargeRock(pos3);
 }

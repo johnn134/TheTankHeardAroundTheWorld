@@ -15,7 +15,6 @@ private:
 	int fire_slowdown;
 	int fire_countdown;
 	bool bomb_right;
-	bool paused;
 
 	void step();
 	void fire();
@@ -27,8 +26,5 @@ public:
 	// Handle event.
 	// Return 0 if ignored, else 1.
 	int eventHandler(const df::Event *p_e);
-
-	//Set whether the gameobject is paused or not
-	void setPause(bool new_pause);
 };
 #endif

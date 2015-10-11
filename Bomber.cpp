@@ -40,8 +40,6 @@ Bomber::Bomber(df::Position p) {
 	fire_slowdown = 5;
 	fire_countdown = fire_slowdown;
 	bomb_right = true;
-
-	paused = false;
 }
 
 // Handle event.
@@ -55,20 +53,13 @@ int Bomber::eventHandler(const df::Event *p_e) {
 	return 0;
 }
 
-//Set whether the gameobject is paused or not
-void Bomber::setPause(bool new_pause) {
-	paused = new_pause;
-}
-
 void Bomber::step() {
-	if (!paused) {
-		// Fire countdown.
-		fire_countdown--;
-		if (fire_countdown < 0)
-			fire_countdown = 0;
+	// Fire countdown.
+	fire_countdown--;
+	if (fire_countdown < 0)
+		fire_countdown = 0;
 
-		bomb_right = !bomb_right;	//Toggle bomb direction with animation
-	}
+	bomb_right = !bomb_right;	//Toggle bomb direction with animation
 }
 
 void Bomber::fire() {

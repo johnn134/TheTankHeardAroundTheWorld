@@ -7,6 +7,7 @@
 
 //Dragonfly Headers
 #include "EventCollision.h"
+#include "EventFootSoldierDeath.h"
 #include "FootSoldier.h"
 #include "Object.h"
 #include "Position.h"
@@ -28,6 +29,7 @@ private:
 	void step();
 	void fire();
 	void hit(const df::EventCollision *p_collision_event);
+	void soldierDied(const EventFootSoldierDeath *p_death_event);
 
 	//draw frames to match where the player is
 	void draw(void);
@@ -38,8 +40,5 @@ public:
 	// Handle event.
 	// Return 0 if ignored, else 1.
 	int eventHandler(const df::Event *p_e);
-
-	//Confirm that soldier is dead
-	void soldierDied(df::Object *s);
 };
 #endif

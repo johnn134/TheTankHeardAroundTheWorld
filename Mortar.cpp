@@ -44,8 +44,6 @@ Mortar::Mortar(df::Position p, df::Object *new_player) {
 	firing_anim_countdown = firing_anim_slowdown;
 	occupied = true;
 	firing = false;
-
-	paused = false;
 }
 
 // Handle event.
@@ -65,27 +63,20 @@ int Mortar::eventHandler(const df::Event *p_e) {
 	return 0;
 }
 
-//Set whether the gameobject is paused or not
-void Mortar::setPause(bool new_pause) {
-	paused = new_pause;
-}
-
 void Mortar::step() {
-	if (!paused) {
-		// Fire countdown.
-		fire_countdown--;
-		if (fire_countdown < 0)
-			fire_countdown = 0;
+	// Fire countdown.
+	fire_countdown--;
+	if (fire_countdown < 0)
+		fire_countdown = 0;
 
-		//Firing animation countdown
-		firing_anim_countdown--;
-		if (firing_anim_countdown < 0)
-			firing_anim_countdown = 0;
+	//Firing animation countdown
+	firing_anim_countdown--;
+	if (firing_anim_countdown < 0)
+		firing_anim_countdown = 0;
 
-		//See if firing is finished
-		if (firing_anim_countdown <= 0) {
-			firing = false;
-		}
+	//See if firing is finished
+	if (firing_anim_countdown <= 0) {
+		firing = false;
 	}
 }
 
