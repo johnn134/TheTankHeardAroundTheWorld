@@ -27,6 +27,7 @@ private:
 	int angle_cannonCD;
 	int health;
 	int lives;
+	int inv_frames;
 	
 	//handle keyboard events
 	void kbd(const df::EventKeyboard *p_event_kbd);
