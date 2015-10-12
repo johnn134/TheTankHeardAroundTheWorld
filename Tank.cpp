@@ -14,6 +14,7 @@
 #include "Lives.h"
 #include "EnemyGunShot.h"
 #include "EventView.h"
+#include "EventLevelFailed.h"
 
 int Tank::eventHandler(const df::Event *p_e) {
 	//catch keyboard events
@@ -212,13 +213,33 @@ void Tank::step() {
 	if (health < 1){
 		//did i lose?
 		if (lives < 1){
-			wm.markForDelete(this);
 			//call for the game/level to be reset
+			EventLevelFailed ev;
+			wm.onEvent(&ev);
 		}
 		else{
-			//pause game for a short while
+			//invincibility frames
+			health = 50;
+			lives--;
+			setSolidness(df::SPECTRAL);
+			df::Position pos1(wm.getView().getHorizontal() / 2, wm.getView().getVertical() - 5);
+			setPosition(viewToWorld(pos1));
+			df::Position pos2;
+			df::Position pos3;
+			
+			for (int i = 0; i <= 5000; i++){
+				if (i % 10 == 0 || i <= 300 || (i % 10) + 1 == 0 || (i % 10) + 2 == 0){
+					pos3.setXY(getPosition().getX(), getPosition().getY());
+					pos2.setXY(-30, 0);
+					setPosition(viewToWorld(pos2));
+				}
+				else if((i % 10) + 3 == 0){
+					setPosition(viewToWorld(pos3));
+				}
+			}
 
-			//replace tank at starting position
+			//make tank solid again
+			setSolidness(df::HARD);
 			df::Position pos(wm.getView().getHorizontal() / 2, wm.getView().getVertical() - 5);
 			setPosition(viewToWorld(pos));
 		}
@@ -411,7 +432,7 @@ void Tank::draw(void){
 
 Tank::~Tank(){
 	df::GameManager &gm = df::GameManager::getInstance();
-	gm.setGameOver(true);
+	//gm.setGameOver(true);
 }
 
 Tank::Tank(){
@@ -458,5 +479,5 @@ Tank::Tank(){
 	cannon_CDRCD = 0;
 	angle_cannonCD = 0;
 	health = TANK_HEALTH;
-	lives = 1;
+	lives = 3;
 }

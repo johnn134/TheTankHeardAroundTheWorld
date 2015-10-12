@@ -13,6 +13,7 @@
 #include "Health.h"
 #include "Score.h"
 #include "Tank.h"
+#include "Lives.h"
 
 const float SCROLL_SPEED = 0.20f;
 
@@ -22,6 +23,7 @@ private:
 	Tank *p_t;
 	Health *p_h;
 	Score *p_s;
+	Lives *p_l;
 	df::ObjectList level_objects;
 
 	void createLevel();

@@ -48,11 +48,12 @@ LevelOne::LevelOne() {
 	p_t = NULL;
 	p_h = NULL;
 	p_s = NULL;
+	p_l = NULL;
 
 	createPlayer();
 	createLevel();
-	EventLevelComplete ev;
-	df::WorldManager::getInstance().onEvent(&ev);
+	//EventLevelComplete ev;
+	//df::WorldManager::getInstance().onEvent(&ev);
 }
 
 int LevelOne::eventHandler(const df::Event *p_e) {
@@ -117,6 +118,7 @@ void LevelOne::createPlayer() {
 	// Setup heads-up display.
 	p_h = new Health();	//Health display
 	p_s = new Score();	//Score display
+	p_l = new Lives(); //lives display
 }
 
 void LevelOne::createLevel() {
