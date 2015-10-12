@@ -51,8 +51,6 @@ LevelOne::LevelOne() {
 
 	createPlayer();
 	createLevel();
-	EventLevelComplete ev;
-	df::WorldManager::getInstance().onEvent(&ev);
 }
 
 int LevelOne::eventHandler(const df::Event *p_e) {
@@ -74,7 +72,7 @@ int LevelOne::eventHandler(const df::Event *p_e) {
 		//Send failed LevelHandled event to GameController
 		EventLevelHandled ev(false, 0);
 		df::WorldManager::getInstance().onEvent(&ev);
-
+		df::WorldManager::getInstance().markForDelete(this);
 		return 1;
 	}
 	return 0;
@@ -287,6 +285,7 @@ void LevelOne::createLevel() {
 
 	p_m = new FootSoldier(df::Position(x_right - 7, offset - 43), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
 
 	//121 - 180; mortars
 	offset = -120;
