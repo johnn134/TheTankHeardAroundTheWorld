@@ -14,6 +14,7 @@
 #include "Lives.h"
 #include "EnemyGunShot.h"
 #include "EventView.h"
+#include "EventLevelFailed.h"
 
 int Tank::eventHandler(const df::Event *p_e) {
 	//catch keyboard events
@@ -208,19 +209,32 @@ void Tank::step() {
 
 	df::WorldManager &wm = df::WorldManager::getInstance();
 
+	inv_frames--;
+	if (inv_frames == 1){
+		//make tank solid again
+		setSolidness(df::HARD);
+	}
+
+	if (inv_frames < 0)
+		inv_frames = 0;
+
 	//am i dead?
 	if (health < 1){
+		lives--;
 		//did i lose?
 		if (lives < 1){
-			wm.markForDelete(this);
 			//call for the game/level to be reset
+			//wm.markForDelete(this);
+			EventLevelFailed ev;
+			wm.onEvent(&ev);
 		}
 		else{
-			//pause game for a short while
-
-			//replace tank at starting position
-			df::Position pos(wm.getView().getHorizontal() / 2, wm.getView().getVertical() - 5);
-			setPosition(viewToWorld(pos));
+			//invincibility frames
+			health = 50;
+			setSolidness(df::SPECTRAL);
+			df::Position pos1(wm.getView().getHorizontal() / 2, wm.getView().getVertical() - 5);
+			setPosition(viewToWorld(pos1));
+			inv_frames = 50;
 		}
 	}
 
@@ -389,29 +403,37 @@ void Tank::draw(void){
 	df::Line l(getPosition(), p_reticle->getPosition());
 	int angle = df::angleBetween(l.getStart(), l.getEnd());
 
-	if ((angle <= 23 && angle >= 0) || (angle < 360 && angle > 338))
-		dir_frame = 2;
-	else if (angle > 23 && angle <= 68)
-		dir_frame = 3;
-	else if (angle > 68 && angle <= 113)
-		dir_frame = 4;
-	else if (angle > 113 && angle <= 158)
-		dir_frame = 5;
-	else if (angle > 158 && angle <= 203)
-		dir_frame = 6;
-	else if (angle > 203 && angle <= 248)
-		dir_frame = 7;
-	else if (angle > 248 && angle <= 293)
-		dir_frame = 0;
-	else if (angle > 293 && angle <= 338)
-		dir_frame = 1;
+	if (inv_frames <= 0){
+		if ((angle <= 23 && angle >= 0) || (angle < 360 && angle > 338))
+			dir_frame = 2;
+		else if (angle > 23 && angle <= 68)
+			dir_frame = 3;
+		else if (angle > 68 && angle <= 113)
+			dir_frame = 4;
+		else if (angle > 113 && angle <= 158)
+			dir_frame = 5;
+		else if (angle > 158 && angle <= 203)
+			dir_frame = 6;
+		else if (angle > 203 && angle <= 248)
+			dir_frame = 7;
+		else if (angle > 248 && angle <= 293)
+			dir_frame = 0;
+		else if (angle > 293 && angle <= 338)
+			dir_frame = 1;
+	}
+	else{
+		if (inv_frames % 2 == 0){
+			dir_frame = 8;
+		}
+		else
+			dir_frame = 0;
+	}
 
 	ghm.drawFrame(getPosition(), getSprite()->getFrame(dir_frame), true);
 }
 
 Tank::~Tank(){
-	df::GameManager &gm = df::GameManager::getInstance();
-	gm.setGameOver(true);
+	df::WorldManager::getInstance().markForDelete(p_reticle);
 }
 
 Tank::Tank(){
@@ -458,5 +480,6 @@ Tank::Tank(){
 	cannon_CDRCD = 0;
 	angle_cannonCD = 0;
 	health = TANK_HEALTH;
-	lives = 1;
+	lives = 3;
+	inv_frames = 0;
 }

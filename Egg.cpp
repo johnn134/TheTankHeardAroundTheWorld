@@ -2,6 +2,7 @@
 #include "EventStep.h"
 #include "Jeep.h"
 #include "Bomber.h"
+#include "EnemyTank.h"
 #include "Helicopter.h"
 #include "WorldManager.h"
 #include "GraphicsManager.h"
@@ -27,6 +28,10 @@ void Egg::step(){
 		else if (eggType == "Helicopter"){
 			getPosition().setY(1);
 			new Helicopter(getPosition());
+		}
+		else if (eggType == "EnemyTank"){
+			getPosition().setY(5);
+			new EnemyTank(getPosition(), target);
 		}
 
 		df::WorldManager &world_manager = df::WorldManager::getInstance();

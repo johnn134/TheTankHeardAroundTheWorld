@@ -63,10 +63,10 @@ int GameController::eventHandler(const df::Event *p_e) {
 					else
 						loadLevel(selection + 1);
 					break;
-				case df::Keyboard::UPARROW:			//Move selection up
+				case df::Keyboard::W:			//Move selection up
 					moveSelection(selection - 1);
 					break;
-				case df::Keyboard::DOWNARROW:		//Move selection down
+				case df::Keyboard::S:		//Move selection down
 					moveSelection(selection + 1);
 					break;
 				default:
@@ -83,10 +83,10 @@ int GameController::eventHandler(const df::Event *p_e) {
 					else
 						loadLevel(selection + 3);	//Load selected level
 					break;
-				case df::Keyboard::UPARROW:			//Move selection up
+				case df::Keyboard::W:			//Move selection up
 					moveSelection(selection - 1);
 					break;
-				case df::Keyboard::DOWNARROW:		//Move selection down
+				case df::Keyboard::S:		//Move selection down
 					moveSelection(selection + 1);
 					break;
 				default:
