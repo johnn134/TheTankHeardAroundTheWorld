@@ -20,6 +20,7 @@ int Egg::eventHandler(const df::Event *p_e){
 
 void Egg::step(){
 	Object *p_o;
+	df::Position alt_pos;
 
 	//if on screen then hatch
 	if (getPosition().getY() >= 0){
@@ -30,12 +31,12 @@ void Egg::step(){
 		else if (eggType == "Bomber")
 			p_o = new Bomber(getPosition());
 		else if (eggType == "Helicopter"){
-			getPosition().setY(1);
-			p_o = new Helicopter(getPosition());
+			alt_pos.setXY(getPosition().getX(), getPosition().getY() + 1);
+			p_o = new Helicopter(alt_pos);
 		}
 		else if (eggType == "EnemyTank"){
-			getPosition().setY(8);
-			p_o = new EnemyTank(getPosition(), target);
+			alt_pos.setXY(getPosition().getX(), getPosition().getY() + 5);
+			p_o = new EnemyTank(alt_pos, target);
 		}
 
 		df::WorldManager &world_manager = df::WorldManager::getInstance();
