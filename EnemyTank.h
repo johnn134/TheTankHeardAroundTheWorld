@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int TANK_POINTS = 30;
+
 class EnemyTank : public df::Object {
 private:
 	df::Object *player;

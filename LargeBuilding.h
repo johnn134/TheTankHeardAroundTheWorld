@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int LARGEBUILDING_POINTS = 15;
+
 class LargeBuilding : public df::Object {
 private:
 	int hit_countdown;

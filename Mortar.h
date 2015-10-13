@@ -10,6 +10,9 @@
 #include "Object.h"
 #include "Position.h"
 
+const int MORTAR_UNOCCUPY_POINTS = 5;
+const int MORTAR_DESTROY_POINTS = 10;
+
 class Mortar : public df::Object {
 private:
 	df::Object *player;

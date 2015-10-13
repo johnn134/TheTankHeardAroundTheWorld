@@ -7,6 +7,7 @@
 
 //Dragonfly Headers
 #include "EventStep.h"
+#include "EventView.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
@@ -17,6 +18,7 @@
 #include "EnemyGunShot.h"
 #include "EventFootSoldierDeath.h"
 #include "FootSoldier.h"
+#include "Score.h"
 #include "SmallExplosion.h"
 
 FootSoldier::FootSoldier(df::Position p, df::Object *new_player) {
@@ -119,6 +121,10 @@ void FootSoldier::hit(const df::EventCollision *p_collision_event) {
 		df::WorldManager &world_manager = df::WorldManager::getInstance();
 		EventFootSoldierDeath death(this);
 		world_manager.onEvent(&death);
+
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, FOOTSOLDIER_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
 
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);

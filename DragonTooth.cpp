@@ -3,12 +3,14 @@
 */
 
 //Dragonfly Headers
+#include "EventView.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
 #include "WorldManager.h"
 
 //Game Headers
 #include "DragonTooth.h"
+#include "Score.h"
 #include "SmallExplosion.h"
 
 DragonTooth::DragonTooth(df::Position p) {
@@ -55,6 +57,10 @@ void DragonTooth::hit(const df::EventCollision *p_collision_event) {
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 
 		// Play "explode" sound
+
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, DRAGONTOOTH_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
 
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);

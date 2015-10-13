@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int SMALLBUILDING_POINTS = 5;
+
 class SmallBuilding : public df::Object {
 private:
 	int hit_countdown;

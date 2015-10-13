@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int LARGEROCK_POINTS = 3;
+
 class LargeRock : public df::Object {
 private:
 	int hit_countdown;

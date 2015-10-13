@@ -7,6 +7,7 @@
 
 //Dragonfly Headers
 #include "EventStep.h"
+#include "EventView.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
@@ -16,6 +17,7 @@
 //Game Headers
 #include "EnemyCannonShot.h"
 #include "EnemyTank.h"
+#include "Score.h"
 #include "SmallExplosion.h"
 
 EnemyTank::EnemyTank(df::Position p, df::Object *new_player) {
@@ -124,6 +126,10 @@ void EnemyTank::hit(const df::EventCollision *p_collision_event) {
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 
 		// Play "explode" sound
+
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, TANK_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
 
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);

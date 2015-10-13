@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int MEDIUMROCK_POINTS = 2;
+
 class MediumRock : public df::Object {
 private:
 	int hit_countdown;

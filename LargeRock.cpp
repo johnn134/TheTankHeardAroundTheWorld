@@ -5,6 +5,7 @@
 //Dragonfly Headers
 #include "EventOut.h"
 #include "EventStep.h"
+#include "EventView.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
@@ -12,6 +13,7 @@
 
 //Game Headers
 #include "LargeRock.h"
+#include "Score.h"
 #include "SmallExplosion.h"
 
 LargeRock::LargeRock(df::Position p) {
@@ -95,6 +97,10 @@ void LargeRock::hit(const df::EventCollision *p_collision_event) {
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 
 		// Play "explode" sound
+
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, LARGEROCK_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
 
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);

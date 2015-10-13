@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int HELICOPTER_POINTS = 25;
+
 class Helicopter : public df::Object {
 private:
 	int fire_slowdown;

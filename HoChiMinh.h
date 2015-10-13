@@ -13,6 +13,7 @@
 #include "Position.h"
 
 const int HOCHIMINH_HEALTH = 3;
+const int HOCHIMINH_POINTS = 100;
 
 class HoChiMinh : public df::Object {
 private:
