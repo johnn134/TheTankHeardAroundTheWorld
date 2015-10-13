@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int SMALLROCK_POINTS = 1;
+
 class SmallRock : public df::Object {
 private:
 	int hit_countdown;

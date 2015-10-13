@@ -4,6 +4,7 @@
 
 //Dragonfly Headers
 #include "EventStep.h"
+#include "EventView.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
@@ -13,6 +14,7 @@
 //Game Headers
 #include "EnemyBombShot.h"
 #include "Mortar.h"
+#include "Score.h"
 #include "SmallExplosion.h"
 
 Mortar::Mortar(df::Position p, df::Object *new_player) {
@@ -114,6 +116,10 @@ void Mortar::hit(const df::EventCollision *p_collision_event) {
 		//Kill occupant
 		occupied = false;
 
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, MORTAR_UNOCCUPY_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
+
 		// Create an explosion.
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 	}
@@ -128,6 +134,10 @@ void Mortar::hit(const df::EventCollision *p_collision_event) {
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 
 		// Play "explode" sound
+
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, MORTAR_DESTROY_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
 
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);

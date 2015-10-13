@@ -4,6 +4,7 @@
 
 //Dragonfly Headers
 #include "EventStep.h"
+#include "EventView.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
@@ -12,6 +13,7 @@
 //Game Headers
 #include "EnemyGunShot.h"
 #include "Helicopter.h"
+#include "Score.h"
 #include "SmallExplosion.h"
 
 Helicopter::Helicopter(df::Position p) {
@@ -120,6 +122,10 @@ void Helicopter::hit(const df::EventCollision *p_collision_event) {
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 
 		// Play "explode" sound
+
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, HELICOPTER_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
 
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);

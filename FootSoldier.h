@@ -11,6 +11,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int FOOTSOLDIER_POINTS = 5;
+
 class FootSoldier : public df::Object {
 private:
 	df::Object *player;

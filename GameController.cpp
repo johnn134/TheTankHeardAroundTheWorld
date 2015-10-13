@@ -12,6 +12,7 @@
 #include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ObjectList.h"
+#include "ResourceManager.h"
 #include "WorldManager.h"
 
 //Game Headers
@@ -78,7 +79,7 @@ int GameController::eventHandler(const df::Event *p_e) {
 			if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED) {
 				switch (p_keyboard_event->getKey()) {
 				case df::Keyboard::RETURN:
-					if (selection == 4)
+					if (selection == 3)
 						loadLevel(0);
 					else
 						loadLevel(selection + 3);	//Load selected level
@@ -114,8 +115,8 @@ int GameController::eventHandler(const df::Event *p_e) {
 		//If level was completed, record highscore and unlock next level
 		if (p_keyboard_event->levelCompleted()) {
 			//Unlock next level
-			if (cur_level >= 3 && cur_level < 6) {
-				level_unlocked[cur_level - 2] = true;
+			if (cur_level >= 3 && cur_level < 5) {
+				level_unlocked[cur_level - 3] = true;
 			}
 
 			//Check if new highscore
@@ -154,10 +155,6 @@ void GameController::loadLevel(int new_level) {
 		//Level 3
 		//new LevelThree();
 	}
-	else if (cur_level == 6) {
-		//Level 4
-		//new LevelFour();
-	}
 }
 
 //Read the game info from "gameinfo.txt"
@@ -185,7 +182,7 @@ int GameController::getGameInfo() {
 //Return 0 if read, -1 else
 int GameController::getUnlockedLevels() {
 	level_unlocked[0] = true;
-	for (int i = 1; i < 4; i++) {
+	for (int i = 1; i < NUM_LEVELS; i++) {
 		level_unlocked[i] = false;
 	}
 	return 0;
@@ -194,7 +191,7 @@ int GameController::getUnlockedLevels() {
 //Read the highscores for each level from "gameinfo.txt"
 //Return 0 if read, -1 else
 int GameController::getLevelHighscores() {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < NUM_LEVELS; i++) {
 		level_scores[i] = 0;
 	}
 	return 0;
@@ -212,8 +209,8 @@ void GameController::moveSelection(int new_selection) {
 	else if (cur_level == 1) {
 		if (new_selection < 0)
 			selection = 0;
-		else if (new_selection > 4)
-			selection = 4;
+		else if (new_selection > NUM_LEVELS)
+			selection = NUM_LEVELS;
 		else
 			selection = new_selection;
 	}
@@ -224,7 +221,7 @@ void GameController::draw() {
 	df::WorldManager &world_manager = df::WorldManager::getInstance();
 
 	df::Position mid_pos = df::Position(world_manager.getView().getCorner().getX() + world_manager.getView().getHorizontal() / 2,
-										world_manager.getView().getCorner().getY() + world_manager.getView().getVertical() / 2);
+		world_manager.getView().getCorner().getY() + world_manager.getView().getVertical() / 2);
 	int mid_x = world_manager.getView().getCorner().getX() + world_manager.getView().getHorizontal() / 2;
 	int mid_y = world_manager.getView().getCorner().getY() + world_manager.getView().getVertical() / 2;
 	int left_margin = 5;
@@ -232,17 +229,18 @@ void GameController::draw() {
 
 	if (cur_level == 0) {
 		//Draw Start Screen
-		graphics_manager.drawString(df::Position(mid_x, mid_y - 5), "The Tank Heard Around The World",
-									df::Justification::CENTER_JUSTIFIED, df::Color::BLACK);
-		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y - 3), "Level Select",
-									df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
-		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y - 1), "How To Play",
-									df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
-		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 1), "Quit to Desktop",
-									df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
+		df::Sprite *p_temp_sprite = df::ResourceManager::getInstance().getSprite("titlescreenimage");
+		graphics_manager.drawFrame(df::Position(mid_x, mid_y), p_temp_sprite->getFrame(0), true);
+
+		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y - 4), "Level Select",
+			df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
+		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y - 2), "How To Play",
+			df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
+		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y - 0), "Quit to Desktop",
+			df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 
 		//Draw selection arrow
-		graphics_manager.drawString(df::Position(mid_x - arrow_x, mid_y - 3 + selection * 2), ">", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
+		graphics_manager.drawString(df::Position(mid_x - arrow_x, mid_y - 4 + selection * 2), ">", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 	}
 	else if (cur_level == 1) {
 		//Level Select Screen
@@ -269,31 +267,19 @@ void GameController::draw() {
 
 		}
 
-		//The North Pole
-		if (level_unlocked[2]) {
-			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 3), "The North Pole", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
+		//The USA
+		if (level_unlocked[3]) {
+			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 3), "The United States of America", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 			std::ostringstream h_s;
-			h_s << "highscore: " << level_scores[2];
+			h_s << "highscore: " << level_scores[3];
 			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 4), h_s.str(), df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 		}
 		else {
 			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 3), "?????", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 4), "highscore: 0", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 		}
-
-		//The USA
-		if (level_unlocked[3]) {
-			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 6), "The United States of America", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
-			std::ostringstream h_s;
-			h_s << "highscore: " << level_scores[3];
-			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 7), h_s.str(), df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
-		}
-		else {
-			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 6), "?????", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
-			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 7), "highscore: 0", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
-		}
 		//Back
-		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 9), "Back", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
+		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 6), "Back", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 
 		//Draw selection arrow
 		graphics_manager.drawString(df::Position(mid_x - arrow_x, mid_y - 3 + selection * 3), ">", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
@@ -302,11 +288,11 @@ void GameController::draw() {
 		//How to play
 		graphics_manager.drawString(df::Position(mid_x, mid_y - 5), "How To Play", df::Justification::CENTER_JUSTIFIED, df::Color::BLACK);
 		graphics_manager.drawString(df::Position(mid_x, mid_y - 3), "WASD to move, mouse click to fire machinegun, space to fire cannon",
-									df::Justification::CENTER_JUSTIFIED, df::Color::BLACK);
+			df::Justification::CENTER_JUSTIFIED, df::Color::BLACK);
 
 		graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y - 1), "Back",
-									df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
-		
+			df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
+
 		//Draw selection arrow
 		graphics_manager.drawString(df::Position(mid_x - arrow_x, mid_y - 1), ">", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 	}

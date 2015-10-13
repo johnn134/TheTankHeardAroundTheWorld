@@ -137,7 +137,8 @@ void Tank::kbd(const df::EventKeyboard *p_keyboard_event) {
 	case df::Keyboard::Q:			// quit
 		if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED) {
 			df::GameManager &gm = df::GameManager::getInstance();
-			gm.setGameOver(true);
+			EventLevelFailed ev;
+			df::WorldManager::getInstance().onEvent(&ev);
 		}
 		break;
 

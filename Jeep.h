@@ -12,6 +12,7 @@
 
 const int ANIMATION_DELAY = 15;
 const int HEALTH = 5;
+const int JEEP_POINTS = 20;
 
 class Jeep : public df::Object {
 private:

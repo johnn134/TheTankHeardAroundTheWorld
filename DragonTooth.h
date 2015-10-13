@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int DRAGONTOOTH_POINTS = 1;
+
 class DragonTooth : public df::Object {
 private:
 	void hit(const df::EventCollision *p_collision_event);

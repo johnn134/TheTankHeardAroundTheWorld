@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int ROCKETSOLDIER_POINTS = 10;
+
 class RocketSoldier : public df::Object {
 private:
 	df::Object *player;

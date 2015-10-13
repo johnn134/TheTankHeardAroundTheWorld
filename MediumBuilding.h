@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "Position.h"
 
+const int MEDIUMBUILDING_POINTS = 10;
+
 class MediumBuilding : public df::Object {
 private:
 	int hit_countdown;

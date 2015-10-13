@@ -16,15 +16,16 @@
 * 3 - level 1
 * 4 - level 2
 * 5 - level 3
-* 6 - level 4
 */
+
+const int NUM_LEVELS = 3;
 
 class GameController : public df::ViewObject {
 private:
 	int cur_level;
 	int selection;
-	int level_scores[4];
-	bool level_unlocked[4];
+	int level_scores[NUM_LEVELS];
+	bool level_unlocked[NUM_LEVELS];
 
 	//Load the given level into the game
 	void loadLevel(int new_level);

@@ -4,6 +4,7 @@
 
 //Dragonfly Headers
 #include "EventStep.h"
+#include "EventView.h"
 #include "GameManager.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
@@ -13,6 +14,7 @@
 //Game Headers
 #include "EventLevelComplete.h"
 #include "HoChiMinh.h"
+#include "Score.h"
 
 HoChiMinh::HoChiMinh(df::Position p, df::Object *new_player) {
 	df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
@@ -107,9 +109,25 @@ void HoChiMinh::hit(const df::EventCollision *p_collision_event) {
 			health--;
 			mouth_open = false;
 			if (health <= 0) {
-				//Return to Level Select
-				EventLevelComplete ev;
+				df::WorldManager &world_manager = df::WorldManager::getInstance();
+				//Delete soldiers
+				if (soldier1 != NULL) {
+					world_manager.markForDelete(soldier1);
+				}
+				if (soldier2 != NULL) {
+					world_manager.markForDelete(soldier2);
+				}
+				if (soldier3 != NULL) {
+					world_manager.markForDelete(soldier3);
+				}
+
+				//Send Points for deletion
+				df::EventView ev(SCORE_STRING, HOCHIMINH_POINTS, true);
 				df::WorldManager::getInstance().onEvent(&ev);
+
+				//Return to Level Select
+				EventLevelComplete evlc;
+				world_manager.onEvent(&evlc);
 			}
 
 			//Reset fire cooldown

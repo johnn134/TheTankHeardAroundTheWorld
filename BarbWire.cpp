@@ -11,6 +11,7 @@
 
 //Game Headers
 #include "BarbWire.h"
+#include "Score.h"
 #include "SmallExplosion.h"
 
 BarbWire::BarbWire(df::Position p) {
@@ -63,6 +64,10 @@ void BarbWire::hit(const df::EventCollision *p_collision_event) {
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
 
 		// Play "explode" sound
+
+		//Send Points for deletion
+		df::EventView ev(SCORE_STRING, BARBWIRE_POINTS, true);
+		df::WorldManager::getInstance().onEvent(&ev);
 
 		//Delete this object
 		df::WorldManager::getInstance().markForDelete(this);
