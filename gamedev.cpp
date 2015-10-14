@@ -1,6 +1,9 @@
 //
 // game.cpp
 // 
+//System Headers
+#include <time.h>
+#include <stdlib.h>
 
 // Engine includes.
 #include "Color.h"
@@ -20,6 +23,9 @@ void loadResources(void);
 int main(int argc, char *argv[]) {
 	df::GraphicsManager &graphics_manager = df::GraphicsManager::getInstance();
 	df::LogManager &log_manager = df::LogManager::getInstance();
+
+	//Seed random
+	srand(time(NULL));
 
 	//Set the window properties
 	//Original:
@@ -136,9 +142,18 @@ void loadResources(void){
 		log_manager.writeLog("Successfully loaded landmine-spr.txt.");
 	if (!resource_manager.loadSprite("sprites/ho-chi-minh-spr.txt", "hochiminh"))
 		log_manager.writeLog("Successfully loaded ho-chi-minh-spr.txt.");
+	if (!resource_manager.loadSprite("sprites/nixon-spr.txt", "nixon"))
+		log_manager.writeLog("Successfully loaded khrushchev-spr.txt.");
+	if (!resource_manager.loadSprite("sprites/khrushchev-spr.txt", "khrushchev"))
+		log_manager.writeLog("Successfully loaded nixon-spr.txt.");
+	if (!resource_manager.loadSprite("sprites/nixon-power-cell-spr.txt", "nixonpowercell"))
+		log_manager.writeLog("Successfully loaded nixon-power-cell-spr.txt.");
 	//Enemy Placements
 	if (!resource_manager.loadSprite("sprites/mortar-spr.txt", "mortar"))
 		log_manager.writeLog("Successfully loaded mortar-spr.txt.");
+	//Miscellaneuos
+	if (!resource_manager.loadSprite("sprites/title-screen-spr.txt", "titlescreenimage"))
+		log_manager.writeLog("Successfully loaded title-screen-spr.txt.");
 
 	//Load sounds
 	if (!resource_manager.loadSound("sounds/gun-shot.wav", "gun-shot"))
