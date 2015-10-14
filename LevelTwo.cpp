@@ -34,7 +34,6 @@
 #include "Tank.h"
 #include "TankTrap.h"
 #include "Egg.h"
-//#include "LevelOne.h"
 #include "Khrushchev.h"
 
 LevelTwo::LevelTwo() {
@@ -137,7 +136,7 @@ void LevelTwo::createLevel() {
 
 	//Create Enemies and Obstacles
 	Object *p_m;
-	
+	/*
 	//Start - 0; American Base
 	p_m = new LargeBuilding(df::Position(x_left, y_view - 4));
 	p_m->setYVelocity(SCROLL_SPEED);
@@ -658,7 +657,7 @@ void LevelTwo::createLevel() {
 	//Boss2
 	offset = -575;
 	//offset = -30;//test boss
-	
+	*/
 	p_m = new Khrushchev(df::Position(x_mid, offset), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);

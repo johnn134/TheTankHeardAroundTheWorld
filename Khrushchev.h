@@ -12,7 +12,7 @@
 #include "Object.h"
 #include "Position.h"
 
-const int KHRUSHCHEV_HEALTH = 300;
+const int KHRUSHCHEV_HEALTH = 100;
 const int KHRUSHCHEV_POINTS = 250;
 
 class Khrushchev : public df::Object {
