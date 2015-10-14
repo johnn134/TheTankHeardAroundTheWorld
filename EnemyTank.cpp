@@ -19,6 +19,7 @@
 #include "EnemyTank.h"
 #include "Score.h"
 #include "SmallExplosion.h"
+#include "EventFootSoldierDeath.h"
 
 EnemyTank::EnemyTank(df::Position p, df::Object *new_player) {
 	df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
@@ -127,12 +128,17 @@ void EnemyTank::hit(const df::EventCollision *p_collision_event) {
 
 		// Play "explode" sound
 
+		// Create "footsoldierdeath" event and send to interested Objects.
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
+		EventFootSoldierDeath death(this);
+		world_manager.onEvent(&death);
+
 		//Send Points for deletion
 		df::EventView ev(SCORE_STRING, TANK_POINTS, true);
-		df::WorldManager::getInstance().onEvent(&ev);
+		world_manager.onEvent(&ev);
 
 		//Delete this object
-		df::WorldManager::getInstance().markForDelete(this);
+		world_manager.markForDelete(this);
 	}
 }
 

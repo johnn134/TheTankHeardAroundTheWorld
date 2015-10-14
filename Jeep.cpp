@@ -8,6 +8,7 @@
 //Dragonfly Headers
 #include "EventStep.h"
 #include "EventView.h"
+#include "EventOut.h"
 #include "GraphicsManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
@@ -19,6 +20,7 @@
 #include "Jeep.h"
 #include "Score.h"
 #include "SmallExplosion.h"
+#include "EventFootSoldierDeath.h"
 
 Jeep::Jeep(df::Position p, df::Object *new_player) {
 	df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
@@ -38,6 +40,8 @@ Jeep::Jeep(df::Position p, df::Object *new_player) {
 	setType("Jeep");
 
 	setSolidness(df::Solidness::SOFT);
+
+	registerInterest(df::OUT_EVENT);
 
 	//Set starting position
 	setPosition(p);
@@ -67,6 +71,20 @@ int Jeep::eventHandler(const df::Event *p_e) {
 	if (p_e->getType() == df::COLLISION_EVENT) {
 		const df::EventCollision *p_collision_event = dynamic_cast <df::EventCollision const *> (p_e);
 		hit(p_collision_event);
+		return 1;
+	}
+
+	if (p_e->getType() == df::OUT_EVENT){
+		if (getPosition().getY() > 10){
+			// Create "footsoldierdeath" event and send to interested Objects.
+			df::WorldManager &world_manager = df::WorldManager::getInstance();
+			EventFootSoldierDeath death(this);
+			world_manager.onEvent(&death);
+
+			//Delete this object
+			world_manager.markForDelete(this);
+		}
+
 		return 1;
 	}
 	return 0;
@@ -158,12 +176,17 @@ void Jeep::hit(const df::EventCollision *p_collision_event) {
 
 		// Play "explode" sound
 
+		// Create "footsoldierdeath" event and send to interested Objects.
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
+		EventFootSoldierDeath death(this);
+		world_manager.onEvent(&death);
+
 		//Send Points for deletion
 		df::EventView ev(SCORE_STRING, JEEP_POINTS, true);
-		df::WorldManager::getInstance().onEvent(&ev);
+		world_manager.onEvent(&ev);
 
 		//Delete this object
-		df::WorldManager::getInstance().markForDelete(this);
+		world_manager.markForDelete(this);
 	}
 }
 
