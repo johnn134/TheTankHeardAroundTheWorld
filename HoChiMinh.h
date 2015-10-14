@@ -8,7 +8,6 @@
 //Dragonfly Headers
 #include "EventCollision.h"
 #include "EventFootSoldierDeath.h"
-#include "FootSoldier.h"
 #include "Object.h"
 #include "Position.h"
 
@@ -21,14 +20,21 @@ private:
 	df::Object *soldier1;
 	df::Object *soldier2;
 	df::Object *soldier3;
+	df::Object *soldier4;
+	df::Object *soldier5;
+	df::Object *mortar1;
+	df::Object *mortar2;
 	int health;
 	int fire_slowdown;
 	int fire_countdown;
+	int mortar_slowdown;
+	int mortar_countdown;
 	bool in_position;
 	bool mouth_open;
 
 	void step();
 	void fire();
+	void refillMortars();
 	void hit(const df::EventCollision *p_collision_event);
 	void soldierDied(const EventFootSoldierDeath *p_death_event);
 
@@ -37,6 +43,7 @@ private:
 
 public:
 	HoChiMinh(df::Position p, df::Object *new_player);
+	~HoChiMinh();
 
 	// Handle event.
 	// Return 0 if ignored, else 1.

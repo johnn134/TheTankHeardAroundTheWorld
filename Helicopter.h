@@ -9,11 +9,13 @@
 #include "EventCollision.h"
 #include "Object.h"
 #include "Position.h"
+#include "Sound.h"
 
 const int HELICOPTER_POINTS = 25;
 
 class Helicopter : public df::Object {
 private:
+	df::Sound *p_sound;
 	int fire_slowdown;
 	int fire_countdown;
 	int anim_slowdown;

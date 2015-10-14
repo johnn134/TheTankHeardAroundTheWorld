@@ -50,7 +50,7 @@ Helicopter::Helicopter(df::Position p) {
 	first_frame = true;
 
 	//Start helicopter sound
-	df::Sound *p_sound = df::ResourceManager::getInstance().getSound("chopper-props");
+	p_sound = df::ResourceManager::getInstance().getSound("chopper-props");
 	p_sound->play(true);
 }
 
@@ -72,6 +72,8 @@ int Helicopter::eventHandler(const df::Event *p_e) {
 }
 
 void Helicopter::step() {
+	df::WorldManager &world_manager = df::WorldManager::getInstance();
+
 	//Fire countdown.
 	fire_countdown--;
 	if (fire_countdown < 0)
@@ -83,11 +85,12 @@ void Helicopter::step() {
 		anim_countdown = 0;
 
 	//Check if needs to turn
-	if (getPosition().getX() < 5) {
+	if (getPosition().getX() < world_manager.getView().getCorner().getX() + 5) {
 		flying_right = true;
 		setXVelocity(1);
 	}
-	if (getPosition().getX() > df::WorldManager::getInstance().getBoundary().getHorizontal() - 5) {
+	if (getPosition().getX() > world_manager.getView().getCorner().getX() + 
+							   world_manager.getView().getHorizontal() - 5) {
 		flying_right = false;
 		setXVelocity(-1);
 	}
@@ -120,6 +123,9 @@ void Helicopter::hit(const df::EventCollision *p_collision_event) {
 
 		// Create an explosion.
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
+
+		//stop sound
+		p_sound->stop();
 
 		// Play "explode" sound
 

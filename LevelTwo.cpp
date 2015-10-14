@@ -21,6 +21,7 @@
 #include "Landmine.h"
 #include "LargeBuilding.h"
 #include "LargeRock.h"
+#include "LevelOne.h"
 #include "LevelTwo.h"
 #include "Lives.h"
 #include "MediumBuilding.h"
