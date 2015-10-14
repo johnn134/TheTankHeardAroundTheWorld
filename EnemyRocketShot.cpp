@@ -76,8 +76,6 @@ void EnemyRocketShot::hit(const df::EventCollision *p_collision_event) {
 		p_collision_event->getObject2()->getType() != "RocketSoldier" &&
 		p_collision_event->getObject1()->getType() != "Helicopter" &&
 		p_collision_event->getObject2()->getType() != "Helicopter" &&
-		p_collision_event->getObject1()->getType() != "EnemyTank" &&
-		p_collision_event->getObject2()->getType() != "EnemyTank" &&
 		p_collision_event->getObject1()->getType() != "Powerup" &&
 		p_collision_event->getObject2()->getType() != "Powerup") {
 		df::WorldManager &world_manager = df::WorldManager::getInstance();

@@ -14,9 +14,8 @@
 #include "Score.h"
 #include "Tank.h"
 #include "Lives.h"
-#include "LevelOne.h"
 
-//const float SCROLL_SPEED = 0.20f;
+const float SCROLL_SPEED = 0.20f;
 
 class LevelTwo : public df::ViewObject {
 private:

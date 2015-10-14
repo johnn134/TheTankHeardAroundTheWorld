@@ -34,8 +34,6 @@
 #include "Tank.h"
 #include "TankTrap.h"
 #include "Egg.h"
-//#include "LevelOne.h"
-#include "Khrushchev.h"
 
 LevelTwo::LevelTwo() {
 	setType("LevelTwo");
@@ -137,7 +135,6 @@ void LevelTwo::createLevel() {
 
 	//Create Enemies and Obstacles
 	Object *p_m;
-	
 	//Start - 0; American Base
 	p_m = new LargeBuilding(df::Position(x_left, y_view - 4));
 	p_m->setYVelocity(SCROLL_SPEED);
@@ -543,11 +540,11 @@ void LevelTwo::createLevel() {
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
-	p_m = new BarbWire(df::Position(x_mid - 12, offset - 45));
+	p_m = new BarbWire(df::Position(x_right - 8, offset - 45));
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
-	p_m = new BarbWire(df::Position(x_mid + 12, offset - 45));
+	p_m = new BarbWire(df::Position(x_right - 24, offset - 45));
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
@@ -583,11 +580,11 @@ void LevelTwo::createLevel() {
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
-	p_m = new Egg("EnemyTank", df::Position(x_mid, offset - 90), p_t);
+	p_m = new Egg("EnemyTank", df::Position(x_mid - 18, offset - 90), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
-	p_m = new Egg("EnemyTank", df::Position(x_mid, offset - 140), p_t);
+	p_m = new Egg("EnemyTank", df::Position(x_mid + 18, offset - 140), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
@@ -612,13 +609,13 @@ void LevelTwo::createLevel() {
 	level_objects.insert(p_m);
 
 	//511 - 550; Last line
-	offset = -490;
+	offset = -510;
 
-	p_m = new BarbWire(df::Position(x_mid - 12, offset - 45));
+	p_m = new BarbWire(df::Position(x_right - 8, offset - 45));
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
-	p_m = new BarbWire(df::Position(x_mid + 12, offset - 45));
+	p_m = new BarbWire(df::Position(x_right - 24, offset - 45));
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 
@@ -653,13 +650,6 @@ void LevelTwo::createLevel() {
 	p_m = new RocketSoldier(df::Position(x_mid - 15, offset - 50), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
-	
 
-	//Boss2
-	offset = -575;
-	//offset = -30;//test boss
-	
-	p_m = new Khrushchev(df::Position(x_mid, offset), p_t);
-	p_m->setYVelocity(SCROLL_SPEED);
-	level_objects.insert(p_m);
+	//Boss3
 }
