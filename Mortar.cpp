@@ -2,6 +2,9 @@
 * Mortar.cpp
 */
 
+//System Headers
+#include <stdlib.h>
+
 //Dragonfly Headers
 #include "EventStep.h"
 #include "EventView.h"
@@ -13,6 +16,7 @@
 
 //Game Headers
 #include "EnemyBombShot.h"
+#include "EventFootSoldierDeath.h"
 #include "Mortar.h"
 #include "Score.h"
 #include "SmallExplosion.h"
@@ -90,13 +94,12 @@ void Mortar::fire() {
 			return;
 
 		//Reset countdown
-		fire_countdown = fire_slowdown;
+		fire_countdown = fire_slowdown + (int)(rand() % 10);
 
 		//Check if player is in range
 		int y_offset = player->getPosition().getY() - getPosition().getY();
 
-		if (y_offset < df::GraphicsManager::getInstance().getVertical() * 7 / 8 && y_offset > 0 &&
-			boxIntersectsBox(getWorldBox(this), df::WorldManager::getInstance().getView())) {
+		if (y_offset > 0 && boxIntersectsBox(getWorldBox(this), df::WorldManager::getInstance().getView())) {
 			// Fire bomb on player
 			EnemyBombShot *p = new EnemyBombShot(player->getPosition());
 
@@ -111,14 +114,15 @@ void Mortar::fire() {
 
 void Mortar::hit(const df::EventCollision *p_collision_event) {
 	// If PlayerGunShot, kill occupant
-	if ((p_collision_event->getObject1()->getType() == "PlayerGunShot") ||
-		(p_collision_event->getObject2()->getType() == "PlayerGunShot")) {
+	if ((p_collision_event->getObject1()->getType() == "PlayerGunShot" ||
+		p_collision_event->getObject2()->getType() == "PlayerGunShot") && occupied) {
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
 		//Kill occupant
 		occupied = false;
 
 		//Send Points for deletion
 		df::EventView ev(SCORE_STRING, MORTAR_UNOCCUPY_POINTS, true);
-		df::WorldManager::getInstance().onEvent(&ev);
+		world_manager.onEvent(&ev);
 
 		// Create an explosion.
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
@@ -129,6 +133,7 @@ void Mortar::hit(const df::EventCollision *p_collision_event) {
 		(p_collision_event->getObject2()->getType() == "Tank") ||
 		(p_collision_event->getObject1()->getType() == "PlayerCannonShot") ||
 		(p_collision_event->getObject2()->getType() == "PlayerCannonShot")) {
+		df::WorldManager &world_manager = df::WorldManager::getInstance();
 
 		// Create an explosion.
 		SmallExplosion *p_explosion = new SmallExplosion(getPosition());
@@ -137,10 +142,14 @@ void Mortar::hit(const df::EventCollision *p_collision_event) {
 
 		//Send Points for deletion
 		df::EventView ev(SCORE_STRING, MORTAR_DESTROY_POINTS, true);
-		df::WorldManager::getInstance().onEvent(&ev);
+		world_manager.onEvent(&ev);
+
+		//Send death event
+		EventFootSoldierDeath efsd(this);
+		world_manager.onEvent(&efsd);
 
 		//Delete this object
-		df::WorldManager::getInstance().markForDelete(this);
+		world_manager.markForDelete(this);
 	}
 }
 

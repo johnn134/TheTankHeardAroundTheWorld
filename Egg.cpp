@@ -37,6 +37,7 @@ void Egg::step(){
 		else if (eggType == "EnemyTank"){
 			alt_pos.setXY(getPosition().getX(), getPosition().getY() + 5);
 			p_o = new EnemyTank(alt_pos, target);
+			p_o->setYVelocity(getYVelocity());
 		}
 
 		df::WorldManager &world_manager = df::WorldManager::getInstance();

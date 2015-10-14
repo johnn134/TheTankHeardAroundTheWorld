@@ -24,6 +24,7 @@
 #include "Helicopter.h"
 #include "Jeep.h"
 #include "LevelOne.h"
+#include "LevelTwo.h"
 #include "Mortar.h"
 #include "RocketSoldier.h"
 
@@ -46,6 +47,7 @@ GameController::GameController() {
 	if (getGameInfo()) {
 		df::LogManager::getInstance().writeLog("GameController::GameController(): Failed to read game info from \"gameinfo.txt\"");
 	}
+
 }
 
 int GameController::eventHandler(const df::Event *p_e) {
@@ -116,7 +118,7 @@ int GameController::eventHandler(const df::Event *p_e) {
 		if (p_keyboard_event->levelCompleted()) {
 			//Unlock next level
 			if (cur_level >= 3 && cur_level < 5) {
-				level_unlocked[cur_level - 3] = true;
+				level_unlocked[cur_level - 2] = true;
 			}
 
 			//Check if new highscore
@@ -149,7 +151,7 @@ void GameController::loadLevel(int new_level) {
 	}
 	else if (cur_level == 4) {
 		//Level 2
-		//new LevelTwo();
+		new LevelTwo();
 	}
 	else if (cur_level == 5) {
 		//Level 3
@@ -183,7 +185,7 @@ int GameController::getGameInfo() {
 int GameController::getUnlockedLevels() {
 	level_unlocked[0] = true;
 	for (int i = 1; i < NUM_LEVELS; i++) {
-		level_unlocked[i] = false;
+		level_unlocked[i] = true;
 	}
 	return 0;
 }

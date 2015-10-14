@@ -1,9 +1,9 @@
 /*
-* LevelOne.h
+* LevelThree.h
 */
 
-#ifndef __LEVELTWO_H__
-#define __LEVELTWO_H__
+#ifndef __LEVELTHREE_H__
+#define __LEVELTHREE_H__
 
 //Dragonfy Includes
 #include "Object.h"
@@ -15,7 +15,7 @@
 #include "Tank.h"
 #include "Lives.h"
 
-class LevelTwo : public df::ViewObject {
+class LevelThree : public df::ViewObject {
 private:
 	int final_score;
 	Tank *p_t;
@@ -29,7 +29,7 @@ private:
 	void clearLevel();
 
 public:
-	LevelTwo();
+	LevelThree();
 	int eventHandler(const df::Event *p_e);
 	void draw();
 };

@@ -3,6 +3,7 @@
 */
 
 //System Headers
+#include <stdlib.h>
 #include <math.h>
 
 //Dragonfly Headers
@@ -47,7 +48,7 @@ FootSoldier::FootSoldier(df::Position p, df::Object *new_player) {
 	setPosition(p);
 
 	player = new_player;
-	fire_slowdown = 15;
+	fire_slowdown = 15 + rand() % 5;
 	fire_countdown = fire_slowdown;
 }
 
