@@ -149,7 +149,7 @@ void EnemyTank::move(int dx) {
 	// If stays on window, allow move.
 	df::Position new_pos(getPosition().getX() + dx, getPosition().getY());
 	df::WorldManager &world_manager = df::WorldManager::getInstance();
-	if ((new_pos.getX() > 3) &&
-		(new_pos.getX() < world_manager.getView().getHorizontal() - 3))
+	if ((new_pos.getX() > world_manager.getView().getCorner().getX()) &&
+		(new_pos.getX() < world_manager.getView().getCorner().getX() + world_manager.getView().getHorizontal()))
 		world_manager.moveObject(this, new_pos);
 }
