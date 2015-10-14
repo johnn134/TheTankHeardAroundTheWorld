@@ -25,6 +25,7 @@
 #include "Jeep.h"
 #include "LevelOne.h"
 #include "LevelTwo.h"
+#include "LevelThree.h"
 #include "Mortar.h"
 #include "RocketSoldier.h"
 
@@ -155,7 +156,7 @@ void GameController::loadLevel(int new_level) {
 	}
 	else if (cur_level == 5) {
 		//Level 3
-		//new LevelThree();
+		new LevelThree();
 	}
 }
 
@@ -164,8 +165,6 @@ void GameController::loadLevel(int new_level) {
 //Return 0 if read or created correctly, -1 else
 int GameController::getGameInfo() {
 	df::LogManager &log_manager = df::LogManager::getInstance();
-
-	//Open "gameinfo.txt"
 
 	//read the unlocked levels
 	if (getUnlockedLevels()) {
@@ -270,10 +269,10 @@ void GameController::draw() {
 		}
 
 		//The USA
-		if (level_unlocked[3]) {
+		if (level_unlocked[2]) {
 			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 3), "The United States of America", df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 			std::ostringstream h_s;
-			h_s << "highscore: " << level_scores[3];
+			h_s << "highscore: " << level_scores[2];
 			graphics_manager.drawString(df::Position(mid_x - left_margin, mid_y + 4), h_s.str(), df::Justification::LEFT_JUSTIFIED, df::Color::BLACK);
 		}
 		else {

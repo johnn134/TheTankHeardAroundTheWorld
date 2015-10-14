@@ -36,7 +36,7 @@ HoChiMinh::HoChiMinh(df::Position p, df::Object *new_player) {
 
 	setType("HoChiMinh");
 
-	setSolidness(df::Solidness::SOFT);
+	setSolidness(df::Solidness::HARD);
 
 	//Register interests
 	registerInterest(df::STEP_EVENT);

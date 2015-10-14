@@ -9,6 +9,7 @@
 #include "BarbWire.h"
 #include "Bomber.h"
 #include "DragonTooth.h"
+#include "Egg.h"
 #include "EnemyTank.h"
 #include "EventLevelComplete.h"
 #include "EventLevelFailed.h"
@@ -16,7 +17,6 @@
 #include "FootSoldier.h"
 #include "Health.h"
 #include "Helicopter.h"
-#include "HoChiMinh.h"
 #include "Jeep.h"
 #include "Landmine.h"
 #include "LargeBuilding.h"
@@ -27,6 +27,7 @@
 #include "MediumBuilding.h"
 #include "MediumRock.h"
 #include "Mortar.h"
+#include "Nixon.h"
 #include "PowerUp.h"
 #include "RocketSoldier.h"
 #include "SmallBuilding.h"
@@ -131,29 +132,318 @@ void LevelThree::createLevel() {
 	/*** Build Game World ***/
 
 	//Create Enemies and Obstacles
-	//Object *p_m;
+	Object *p_m;
 	//Start - 0; Barricade
+	p_m = new BarbWire(df::Position(x_mid + 7, 10));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_mid - 7, 10));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_right - 2, 10));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_left + 2, 10));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_left + 6, 25));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_right - 6, 25));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new TankTrap(df::Position(x_left + 4, 28));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new TankTrap(df::Position(x_left + 8, 28));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new TankTrap(df::Position(x_right - 4, 28));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new TankTrap(df::Position(x_right - 8, 28));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 4, 31));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 8, 31));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_right - 4, 31));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_right - 8, 31));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
 
 	//0 - 60; Town
+	p_m = new SmallBuilding(df::Position(x_left + 4, offset - 7));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_mid + 5, offset - 7));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_right - 4, offset - 7));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_left + 4, offset - 27));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new FootSoldier(df::Position(x_left + 4, offset - 24), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_mid + 5, offset - 27));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_right - 4, offset - 27));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new FootSoldier(df::Position(x_right - 12, offset - 27), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_right - 4, offset - 33));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_right - 8, offset - 43));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_mid - 4, offset - 38));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new FootSoldier(df::Position(x_mid, offset - 34), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_left + 6, offset - 55));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new FootSoldier(df::Position(x_left + 10, offset - 55), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
 
 	//61 - 90; Fort
 	offset = -60;
+	p_m = new LargeBuilding(df::Position(x_right - 18, offset - 30));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new MediumBuilding(df::Position(x_right - 22, offset - 18));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("EnemyTank", df::Position(x_left + 16, offset - 27), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new MediumBuilding(df::Position(x_right - 11, offset - 18));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new LargeRock(df::Position(x_right - 18, offset - 40));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("EnemyTank", df::Position(x_left + 16, offset - 45), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_left + 6, offset - 58));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_right - 6, offset - 58));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
 
 	//121 - 180; Minefield and bombers
 	offset = -120;
+	p_m = new Landmine(df::Position(x_left + 3, offset - 2));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 7, offset - 4));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_right - 3, offset - 2));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_right - 7, offset - 4));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_mid - 10, offset - 30));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_mid, offset - 25));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_mid + 10, offset - 20));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("Bomber", df::Position(x_mid + 5, offset - 42), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("Bomber", df::Position(x_mid - 5, offset - 52), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 3, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 7, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 11, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 15, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 19, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_mid, offset - 40));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("Bomber", df::Position(x_left - 20, offset - 60), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("Bomber", df::Position(x_left - 10, offset - 62), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_left + 10, offset - 50));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Landmine(df::Position(x_right - 10, offset - 50));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("Bomber", df::Position(x_mid, offset - 75), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("Bomber", df::Position(x_mid - 5, offset - 78), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new Egg("Bomber", df::Position(x_mid + 5, offset - 72), p_t);
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_left + 8, offset - 59));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_right - 8, offset - 59));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
 
 	//181 - 240; Bullet tube
 	offset = -180;
+	for (int i = 0; i < 6; i++) {
+		p_m = new SmallBuilding(df::Position(x_left + 5, offset - 10 * i));
+		p_m->setYVelocity(SCROLL_SPEED);
+		level_objects.insert(p_m);
+
+		p_m = new SmallBuilding(df::Position(x_right - 5, offset - 10 * i));
+		p_m->setYVelocity(SCROLL_SPEED);
+		level_objects.insert(p_m);
+
+		p_m = new FootSoldier(df::Position(x_left + 10, offset - 10 * i), p_t);
+		p_m->setYVelocity(SCROLL_SPEED);
+		level_objects.insert(p_m);
+
+		p_m = new FootSoldier(df::Position(x_right - 10, offset - 10 * i), p_t);
+		p_m->setYVelocity(SCROLL_SPEED);
+		level_objects.insert(p_m);
+	}
 
 	//241 - 300; Roadway
-	offset = -240;
 
 	//301 - 360; Headquarters
-	offset = -300;
 
 	//361 - 420; Last line
-	offset = -360;
+	offset = -240;
+	p_m = new BarbWire(df::Position(x_left + 8, offset - 25));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_left + 8, offset - 35));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_left + 25, offset - 20));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_left + 25, offset - 30));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new BarbWire(df::Position(x_left + 25, offset - 40));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new LargeBuilding(df::Position(x_left + 16, offset - 50));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_left + 35, offset - 20));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_left + 35, offset - 30));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
+
+	p_m = new SmallBuilding(df::Position(x_left + 35, offset - 40));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
 
 	//421 - 480; Boss
-	offset = -420;
+	offset = -300;
+	p_m = new Nixon(df::Position(x_mid, offset - 55));
+	p_m->setYVelocity(SCROLL_SPEED);
+	level_objects.insert(p_m);
 }

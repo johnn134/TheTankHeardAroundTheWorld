@@ -886,7 +886,7 @@ void LevelOne::createLevel() {
 
 	//541 - 600; Ho Chi Minh
 	offset = -540;
-	p_m = new HoChiMinh(df::Position(x_mid, offset - 10), p_t);
+	p_m = new HoChiMinh(df::Position(x_mid, offset - 55), p_t);
 	p_m->setYVelocity(SCROLL_SPEED);
 	level_objects.insert(p_m);
 }
