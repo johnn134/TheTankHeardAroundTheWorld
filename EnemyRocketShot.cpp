@@ -68,6 +68,8 @@ void EnemyRocketShot::hit(const df::EventCollision *p_collision_event) {
 		p_collision_event->getObject2()->getType() != "EnemyGunShot" &&
 		p_collision_event->getObject1()->getType() != "EnemyCannonShot" &&
 		p_collision_event->getObject2()->getType() != "EnemyCannonShot" &&
+		p_collision_event->getObject1()->getType() != "EnemyTankShot" &&
+		p_collision_event->getObject2()->getType() != "EnemyTankShot" &&
 		p_collision_event->getObject1()->getType() != "BarbWire" &&
 		p_collision_event->getObject2()->getType() != "BarbWire" &&
 		p_collision_event->getObject1()->getType() != "FootSoldier" &&
